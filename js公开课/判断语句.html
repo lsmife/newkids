@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3个判断语句</title>
+</head>
+<body>
+    <script>
+        /*
+            3个判断
+            1、if   else if   else
+            2、三元运算符 ; 用于简单if else
+            3、switch case ; 用于不同值情况下的不同操作
+            
+            //if   else if   else
+                if(条件一){
+                    执行条件一代码
+                }else if(条件二){
+                    执行条件二代码
+                }else if(条件三){
+                    执行条件三代码
+                }
+                ...
+                else{
+                    执行以上条件都不满足的代码
+                }
+                var num=10;
+                if(num>0){
+                    console.log("正数")
+                }else if(num<0){
+                    console.log("负数")
+                }else{
+                    console.log("0")
+                }
+            //三元运算：
+
+                num>0?"正数":void:0 //void：0补位什么都不做
+                
+            //switch改造：
+
+                if(num==0){
+                    console.log("假的");
+                } else if(num==1){
+                    console.log("真的");
+                }else{
+                    console.log("不知道什么东西")
+                }
+                
+                switch(num){
+                    case 0:
+                    console.log("假的");
+                    break;
+                    case 1:
+                    console.log("真的");
+                    break;
+                    default:
+                    console.log("不知道什么东西")
+                }
+                //break必须加，如果不加,匹配到的那项后面的代码也会被执行，直到遇到break,如果没有匹配到不加break的那项则不会出现这种情况
+                //每一种情况都是执行===,一定注意数据类型
+                var num=1;
+                switch(num){
+                    case 0:
+                    console.log('0');
+                    break;
+                    case 1:
+                    console.log('1');
+                    case 2:
+                    console.log('2');
+                    case 3:
+                    console.log('3');
+                    case 4:
+                    console.log('4');
+                    break;
+                    case 5:
+                    console.log('5');
+                    break;
+                    default:
+                    console.log('数字>5');
+                }
+                // -> 1 2 3 4       会连续执行，直到遇到break
+                // 当num=3  -> 3 4 
+                // 当num=5  -> 5    不会连续执行
+                // 当num="3"  ->    "数字>5" 
+        */
+    </script>
+</body>
+</html>

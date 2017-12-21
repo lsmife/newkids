@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>this关键字</title>
+</head>
+<div id="div1">点击测试this</div>
+<body>
+<script>
+    /*
+    * 主要研究函数中的this
+    * this:当前行为的执行主体
+    * 我吃饭，我就是执行主体
+    * context:当前行为执行的环境;
+    * this指向谁与在哪里定义和在哪里执行没有关系
+    * 1、方法执行前面如果存在 "."，那么，this就指向"."前面的内容，否则指向Window
+    *
+    * function fn(){
+    *       console.log(this);
+    * }
+    * var obj={fn:fn};
+    * fn(); //this->window
+    * obj.fn()//this->obj
+    *
+    * function sum(){
+    *   fn();// this -> window
+    * }
+    * sum()
+    *
+    * var oo={
+    *   sum:function(){
+    *       console.log(this) //this->oo
+    *       fn() // this->window;
+    *   }
+    * }
+    * oo.sum();
+    *
+    * 2、自执行函数this指向window
+    * !function(){
+    *   console.log(this)
+    * }()
+    *
+    * 3、给元素的事件属性绑定方法，事件触发时，this指向元素
+    * var obj=document.getElementById('div1');
+    * obj.onclick=function(){
+    *   console.log(this); //this->该元素
+    * }
+    * function fn(){
+    *   console.log(this);
+    * }
+    * obj.onclick=fn;//this ->元素
+    * obj.onclick=function(){
+    *   //this->元素
+    *   fn() //this ->window
+    * }
+    * 补充：this在函数定义时无法确认指向，在执行是才可以确认，this指向上一级对象；
+    * 函数类型：
+    * 1、普通函数，在window全局执行使用function申明的函数
+    * 2、对象属性方法
+    * 3、构造函数
+    *
+    * 1)、普通函数中的this执行指向的是window
+    * 2)、对象属性方法执行
+    * var b={
+    *   x:12,
+    *   func:function(){}
+    * }
+    * window.b.func() // this指向上一级对象b
+    * var c=b.func;
+    * window.c() // this指向上一级对象window
+    * 3)、构造函数
+    * 构造函数本身是对象类型的变量，通过new改变了this的指向，可以将这个新的对象用一个变量接收
+    * 在构造函数体中return了引用数据类型的变量（除null外）会改变构造函数返回的内容，由实例变为return的对象
+    * return普通数据类型不会出现这种问题
+    * */
+
+//    this最终的5种情况：
+//    1、自执行函数执行，this用于指向window（严格模式下undefined）；
+//    2、普通函数执行，函数前面有'.'指向'.'前面的对象，如没有则指向window（严格模式下undefined）
+//    3、给元素的一个行为事件绑定方法，方法的this指向该元素
+//    4、构造函数中this，在创建实例时候指向实例本身
+//    5、call/apply/bind,this指向参数对象（优先级最高，上面4中与第5种同时存在时，以第5个为准）（入参对象是Null、undefined，严格模式下不是window是Null、undefined，参见call方法）；
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM映射机制</title>
+</head>
+<body>
+<ul id="table">
+    <li>12</li>
+    <li>22</li>
+    <li>11</li>
+    <li>7</li>
+    <li>34</li>
+</ul>
+<script>
+    //DOM映射机制：
+    // 1、JS获取了页面中的对象集合(HTMLCollection或者NodeList)，和页面中的标签紧紧绑定在了一起，页面标签增加时，集合也会自动增加
+    // 2、集合中的某一项通过js调整了他的样式，页面对应的标签也会相应的发生改变
+    var oUl=document.getElementById('table');
+    var oLi=document.getElementsByTagName('li');
+    console.log(oLi.length)
+    var oLiItem=document.createElement('li');
+    oUl.appendChild(oLiItem);
+    console.log(oLi.length)
+</script>
+</body>
+</html>

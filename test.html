@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="w1 w2"></div>
+<div class="w1 w2 w3"></div>
+<div class="w3 w2"></div>
+<div class="w1 w3"></div>
+<div id="w3"></div>
+<script src="./assets/utils.js"></script>
+<script>
+    var box=document.getElementById('w3')
+    utils.css(box,{
+        'border':'1px solid #ddd',
+        'height':100,
+        'width':100
+    })
+    utils.css(box,'background','red');
+    console.log(utils.css(box,'width'))
+//    function css(ele){
+//        var argTwo=arguments[1];
+//        if(typeof argTwo==="string"){
+//            var argThree=arguments[2];
+//            if(!argThree){
+//                return this.getCssStyle.apply(this,arguments);
+//            }
+//            this.setCss.apply(this,arguments);
+//        }
+//        argTwo=argTwo||0;
+//        if(argTwo.toString()==="[object Object]"){
+//            this.setGroupCss.apply(this,arguments);
+//        }
+//    }
+//    function setGroupCss(ele,options){
+//        // 检测是否为对象类型，否则不能设置
+//        // Object.prototype.toString.call(obj)!=='[object Object]';
+//        options = options || 0;//解决undefined或者null的toString方法报错问题
+//        if(options.toString()!=='[object Object]'){
+//            return;
+//        }
+//        //遍历对象这个调用setcss进行设置
+//        for(var key in options){
+//            if(options.hasOwnProperty(key)){
+//                this.setCss(ele,key,options[key]);
+//            }
+//        }
+//    }
+//    function setCss(ele,attr,value){
+//        if(attr==="float"){
+//            ele["style"]["cssFloat"]=value;
+//            ele["style"]["styleFloat"]=value;
+//            return;
+//        }
+//        if(attr==='opacity'){
+//            ele["style"]["opacity"]=value;
+//            ele["style"]["filter"]="alpha(opacity="+value*100+")";
+//            return;
+//        }
+//        var reg=null;
+//        reg=/^(width|height|left|right|top|bottom|((margin|padding)(Left|Top|Bottom|Right)?))$/
+//        if(reg.test(attr)){
+//            if(!isNaN(value)){
+//                value+="px";
+//            }
+//        }
+//        ele["style"][attr]=value;
+//    }
+//    function getCssStyle(box,attr){//获取元素的样式兼容（元素，css属性）
+//        var val=null;
+//        if(!flag){//检测属性是否属于这个对象 if(typeof window.getComputedStyle==='undefined') if(window.getComputedStyle)
+//            if(attr==='opacity'){ //针对IE进行的处理
+//                val=box.currentStyle['filter'];
+//                reg=/^alpha\(opacity=(\d+(?:\.\d+)?)\)$/i;
+//                val=reg.test(val)?reg.exec(val)[1]/100:1;
+//            }else{
+//                val=box.currentStyle[attr];
+//            }
+//        }else{
+//            val=window.getComputedStyle(box,null)[attr];
+//        }
+//        reg=/^(-?\d+(\.\d+)?)(px|rem|pt|em)?$/i;//对符合规则的值进行去单位,去单位，为了方便计算,有些能去单位，有些不能去单位
+//        return reg.test(val)?parseFloat(val):val;
+//    }
+//
+//    function getElementsByClass(className,context){
+//        //设置上下文
+//        context = context || document;
+//        var arr=[];
+//        //获取去除首尾空格后以空格分割的类名数组
+//        var classNameArr=className.replace(/(^ +| +$)/,'').split(/ +/g);
+//        //获取上下文中所有元素
+//        var nodeList=context.getElementsByTagName("*");
+//        for(var i=0;i<nodeList.length;i++){
+//            var curNode=nodeList[i];
+//            //class="w1 w2 "需要几包含w1也包含w2
+//            var isOk=true;//设置符合规则的标记，默认为符合
+//            for(var k=0;k<classNameArr.length;k++){
+//                var reg=new RegExp("(^| +)"+classNameArr[k]+"( +|$)");
+//                if(!reg.test(curNode.className)){
+//                    isOk=false;
+//                    break;
+//                }
+//            }
+//            if(isOk){
+////                arr.push(nodeList[i]);
+//                arr[arr.length]=curNode;
+//            }
+//        }
+//        return arr;
+//    }
+//    console.dir(getElementsByClass('w2'))
+//    var ele=document.getElementById('ls');
+//    function hasClass(ele,cName){
+//        var elecName=ele.className;
+//        var reg=new RegExp('(^| +)'+cName+'( +|$)')
+//        if(reg.test(elecName)){
+//            return true;
+//        }
+//        return false;
+//    }
+//    function addClass(ele,cName){
+//        var cNameList=cName.split(/ +/g);//处理传递多个类名
+//        for(var i=0;i<cNameList.length;i++){
+//            var curName=cNameList[i]
+//            if(!this.hasClass(ele,curName)){
+//                ele.className+=' '+curName;
+//            }
+//        }
+//    }
+//
+//    function removeClass(ele,cName){
+//        var cNameList=cName.split(/ +/g);//处理传递多个类名
+//        for(var i=0;i<cNameList.length;i++){
+//            var reg=new RegExp('(^| +)'+cName+'( +|$)');
+//            var curName=cNameList[i];
+//            if(this.hasClass(ele,curName)){
+//                ele.className=ele.className.replace(reg,' ')
+//            }
+//        }
+//
+//    }
+//    console.log(hasClass(ele,'bg'));
+//    console.log(hasClass(ele,'bg2'));
+//    console.log(hasClass(ele,'list'));
+//    console.log(hasClass(ele,'list2'));
+//    addClass(ele,'list3')
+//    removeClass(ele,'bg')
+</script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM节点关系和属性</title>
+</head>
+<body>
+
+<div id="div1">
+    <h1>培训体系</h1>
+    <!--培训体系课程详细介绍-->
+<ul>
+        <li>js在公开课</li>
+        <li class="list" >html+css免费公开课</li>
+        <li name="list">js在上课</li>
+        <!--这是-->
+        <li id="item">移动端课</li>
+        <li>NODEjs在上课</li>
+    </ul>
+</div>
+
+<script>
+/*
+* 节点：元素标签、文字、注释..
+* 一、获取节点的方法：
+* childNodes：获取所有节点
+* children: 获取所有元素标签节点
+* parentNode:获取父亲节点
+* previousSibling:获取上一个哥哥节点
+* nextSibling:获取下一个弟弟节点
+* firstChild:所有节点中的第一个节点
+* lastChild:所有节点中的最后一个节点
+* 节点类型：                nodeType      nodeName    nodeValue
+* 1、元素节点：元素标签         1            大写标签名      null
+* 2、文本节点：文字            3            #text       文字内容
+* 3、注释节点：注释            8            #comment    注释内容
+* 4、document               9            #document    null
+* 再标准浏览器下，space和enter都当做文本
+*
+* */
+//var oDiv=document.getElementById('div1');
+//console.dir(oDiv.childNodes)
+//console.dir(oDiv.children)
+//console.dir(oDiv.parentNode)
+//console.dir(oDiv.previousSibling)
+//console.dir(oDiv.nextSibling)
+//console.dir(oDiv.firstChild)
+//console.dir(oDiv.lastChild)
+
+//二、改写children，让他可以指定文本标签获取节点
+//function mychildren(node,tag){
+//    var child=node.childNodes;
+//    var children=[];
+//    for(var i=0;i<child.length;i++){
+//        var cur=child.item(i);
+//        if(cur.nodeType===1 && !tag){
+//            children.push(cur);
+//            //兼容：nodeName在不同的文档模式下，可能是大写也可能是小写,所以两边统一处理一下 toLowerCase()或者toUpperCase()
+//        }else if(cur.nodeType===1 && cur.nodeName.toUpperCase()===tag.toUpperCase()){
+//            children.push(cur);
+//        }
+//    }
+//    return children;
+//}
+//var $div=document.getElementById('div1');
+//console.log(mychildren($div));
+//console.log(mychildren($div,'h1'));
+
+//三、改写previousSibling，让他只获取哥哥节点时忽略文本和注释节点
+//var item=document.getElementById('item');
+//1、查找前一个
+//function prev(node){
+//    var pre=node.previousSibling;
+//    while(pre && pre.nodeType!==1){
+//        pre=pre.previousSibling;
+//    }
+//    return pre;
+//}
+//var prev=prev(item);
+//console.log(prev)
+//2、查找前面全部
+//function prevAll(node){
+//    var prevs=[];
+//    var prev=node.previousSibling;
+//    while(prev){
+//        if(prev.nodeType===1){
+//            prevs.unshift(prev);
+//        }
+//        prev=prev.previousSibling;
+//    }
+//    return prevs;
+//}
+//var prevs=prevAll(item);
+//console.log(prevs)
+
+//思考题：
+//1、获取下一个弟弟节点
+//2、获取所有弟弟节点
+//3、获取所有兄弟节点
+//4、获取相邻的两个节点
+
+//四、DOM树继承探索
+//    var oDiv=document.getElementById('div1');
+//    var oChild=document.getElementsByClassName('list');
+//    var oChild=oDiv.childNodes;
+//    console.dir(document)
+    // li.list->HTMLLIELEMENT->HTMLELEMENT->ELEMENT->NODE->EventTarget->Object
+//    ELEMENT:操作DOM的方法都在这里
+//    getElementsByClassName
+//    getElementsByTagName
+//    getElementsByTagNameNS
+//    querySelector
+//    querySelectorAll
+    //NODE
+//    nodeName
+//    nodeType
+//    nodeValue
+//    childNodes
+//    parentNode
+//  EventTarget
+//    addEventListener
+//    dispatchEvent
+//    removeEventListener
+//  Object
+//    hasOwnProperty
+//    isPrototypeOf
+//    propertyIsEnumerable
+//    toLocaleString
+//    toString
+//    valueOf
+
+    // li.list->HTMLDivElement->HTMLELEMENT->ELEMENT->NODE->EventTarget->Object
+
+    //#document->HtmlDocument->Document->Node->EventTarget->Object
+
+    //Document
+//        getElementById
+//        getElementsByClassName
+//        getElementsByName
+//        getElementsByTagName
+//        getElementsByTagNameNS
+//        createElement
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+[
+    {"nick":"张三","age":30,"score":45,"gender":"男"},
+    {"nick":"李四","age":20,"score":54,"gender":"女"},
+    {"nick":"王武","age":32,"score":99,"gender":"男"},
+    {"nick":"齐秦","age":43,"score":78,"gender":0},
+    {"nick":"葛优","age":56,"score":59,"gender":1},
+    {"nick":"刘德华","age":31,"score":60,"gender":null},
+    {"nick":"张柏芝","age":60,"score":32,"gender":"男"},
+    {"nick":"谭维维","age":35,"score":96,"gender":""},
+    {"nick":"李亮","age":35,"score":96,"gender":null},
+    {"nick":"赵天华","age":35,"score":96,"gender":0}
+]

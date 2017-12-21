@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>原型this</title>
+</head>
+<body>
+<script>
+    function Fn(){
+        this.x=100;
+        this.y=200;
+        this.getY=function(){
+            console.log(this.y);
+        }
+    }
+    Fn.prototype={
+        constructor:Fn,
+        y:400,
+        getX:function(){
+            console.log(this.x);
+        },
+        getY:function(){
+            console.log(this.y);
+        }
+    }
+    var f=new Fn;
+    f.getX(); // ->100;
+    f.__proto__.getX();// ->undefined;
+    Fn.prototype.getX();// ->undefined;
+    f.getY()//->200
+    f.__proto__.getY()//->400
+    //数组原型增加去重方法
+    Array.prototype.myUnique=function(){
+        if(!Array.isArray(this)){
+            return [];
+        }
+        var obj={},ary=[];
+        for(var i=0;i<this.length;i++){
+            var cur=this[i];
+            if(obj[cur]===cur){
+                continue;
+            }
+            obj[cur]=cur;
+            ary.push(cur);
+        }
+        return ary;
+    }
+    //数组原型增加去重方法（推荐,reverse\sort都改变了原数组）
+    Array.prototype.myUnique=function(){
+        if(!Array.isArray(this)){
+            return [];
+        }
+        var obj={};
+        for(var i=0;i<this.length;i++){
+            var cur=this[i];
+            if(obj[cur]===cur){
+                this[i]=this[this.length-1];
+                i--;
+                this.length--;
+                continue;
+            }
+            obj[cur]=cur;
+        }
+        obj=null;//释放内存
+        return this;//链式写法
+    }
+    var ary=[1,3,6,8,9,10,3,6,9,9,6,3,1];
+    var objs=ary.myUnique() //this->ary
+    console.log(ary)
+    ary.__proto__.myUnique() //->ary.__proto__
+    var objs=ary.myUnique().reverse().pop()//链式写法
+</script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件</title>
+</head>
+<style>
+    #div1{
+        width: 200px;
+        height: 200px;
+        background: red;
+    }
+</style>
+<body>
+
+<div id="div1"></div>
+<script>
+var oDiv=document.getElementById('div1');
+console.dir(oDiv)
+/*
+ 事件
+ 浏览器赋予的行为
+ onclick onmouseover(onmouseenter) onmouserout(onmouserleave) onmousemove onmousedown onmouseup
+ onmousewheel onscroll onresize onload onunload(浏览器关闭) onblur onfocus onkeydown onkeyup
+ //DOM0级事件绑定
+ oDiv.onclick=function(){
+     console.log('ok');
+ }
+ //DOM2级事件绑定
+ oDiv.addEventListener('click',function(){
+     console.log('ok');
+ },false)
+
+ 事件绑定：匿名函数的定义部分当做值赋值给事件行为，事件被触发时执行该函数，触发事件时浏览器给这个函数传递一个MouseEvent对象，记录鼠标相关信息
+ 鼠标事件对象：MouseEvent(记录这鼠标的唯一信息，和在哪里触发没有关系)
+ 一、MouseEvent原型链：MouseEvent->UIEvent->Event->Object
+ MouseEvent在IE6-8下面，是不会被传递进函数的,但是可以使用window.event
+ function (e){
+    e=e||window.event
+ }
+ 1、EventTarget:事件源//IE6-8没有改属性，但是有srcElement
+ function(e){
+    e=e || window.event;
+    e.target=e.target || e.srcElement;
+ }
+ 2、clientX/clientY:距离视口左上角的位置
+
+ 3、pageX/pageY:距离页面顶部左上角的位置IE6-8没有改属性，但是有srcElement
+ function(e){
+    e.pageX=e.clientX || (e.clientX+(document.body.scrollLeft || document.documentElement.scrollLeft))
+    e.pageY=e.pageY || (e.clientY+(document.body.scrollTop || document.documentElement.scrollTop))
+ }
+ //阻止浏览器默认行为
+ 4、e.preventDefault ? e.preventDefault():e.returnValue=false;
+ //阻止冒泡
+ 5、e.stopPropagation ? e.stopPropagation():e.cancelBubble=true;
+ 6、获取输入内容(键盘按键值)
+    e.keyCode
+    空格(spance) 32
+    回退(backspace) 8
+    回车(Enter) 13
+    删除(delete) 46
+    导航（左 37 上 38 右 39 下 40）
+
+ */
+oDiv.onclick=function(){
+    console.dir();
+}
+</script>
+</body>
+</html>

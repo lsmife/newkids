@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>类型检测及类型区别</title>
+</head>
+<body>
+    <script>
+        /*
+            参考地址：http://www.cnblogs.com/CandyManPing/p/5386767.html
+            基础数据类型：按值操作
+            引用数据类型：按址操作
+            类型检测：typeof instanceof constructor Object.prototype.toString.call()
+            1、typeof 返回字符串,包含数据类型字符
+            返回值："number" "string" "boolean" "undefined" "object" "function"
+            缺点：不能检测object的细分类
+            console.log(typeof '珠峰') -> "string"
+            console.log(typeof null,typeof {},typeof [],typeof /^$/) -> "object object object object"
+            console.log(typeof function(){})
+
+            var num2=12
+            console.log(typeof num2) ->"number" //检测变量代表的或者存储的值的类型
+            console.log(typeof 12) ->"number"
+        */    
+        console.log(typeof(typeof(typeof(typeof([])))))
+        //"string" 2个以上的都是返回"string" ,因为typeof的返回值是字符串
+    </script>
+</body>
+</html>

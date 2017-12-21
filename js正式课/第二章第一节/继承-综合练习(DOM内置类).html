@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>继承综合练习（DOM内置类）</title>
+</head>
+<body>
+<div ></div>
+<a href="#">1</a>
+<a href="#" name="aTag">2</a>
+<a href="#">3</a>
+<div class="ls"></div>
+<form action="" name="formers">
+    <input type="text" name="nicks" value="23">
+    <input type="text" name="nicks" value="23">
+    <input type="text" name="nicks" value="23">
+</form>
+<span id="ls"></span>
+<script>
+    //总结：通过getElementsByName和getElementById的执行上下文是document其他的获取元素的方法是context
+//       getElementsByName：NodeList(类数组)->Object
+//       getElementById:span#ls节点->HTMLSpanElement->HTMLElement->Element->Node->EventTarget->Object
+//       getElementsByClassName:HTMLCollection(类数组)->Object
+//       getElementsByTagName:HTMLCollection(类数组)->Object
+//       类数组属性：类数组、length、item()、namedItem()
+//       NodeList多余属性：forEach()、keys()、values()、entries()
+//       思考：罗列出DOM原型链的方法列出来，并标注兼容性
+
+    var ls=document.getElementsByClassName('ls');
+    console.dir(ls)
+//    div.ls
+//    length:1
+//    __proto__:HTMLCollection
+//    item:ƒ item()
+//    namedItem:ƒ namedItem()
+//    __proto__:Object
+    var lsmife=document.getElementsByName('lsmife');
+    console.dir(lsmife);
+//    0: a
+//    1: a
+//    2: a
+//    length: 3
+//    __proto__: NodeList
+//        entries: ƒ entries()
+//        forEach: ƒ forEach()
+//        item: ƒ item()
+//        keys: ƒ keys()
+//        values: ƒ values()
+//        constructor: ƒ NodeList()
+//    __proto__: Object
+//    lsmife.forEach(function(keys,values){
+//        console.log(lsmife.values)
+//    })
+
+    var div=document.getElementsByTagName('div');console.dir(div);
+//    0: div
+//    length: 1
+//    __proto__: HTMLCollection
+//        item: ƒ item()
+//        namedItem: ƒ namedItem()
+//    __proto__:Object
+//        hasOwnProperty: ƒ hasOwnProperty()
+//        isPrototypeOf: ƒ isPrototypeOf()
+//        propertyIsEnumerable: ƒ propertyIsEnumerable()
+//        toLocaleString: ƒ toLocaleString()
+//        toString: ƒ toString()
+//        valueOf: ƒ valueOf()
+//    var a=document.getElementsByTagName('a');console.dir(a);
+//    console.log(a.namedItem('aTag').innerHTML)//参数：name属性值
+//    console.log(a.namedItem('lsmife').innerHTML)
+//
+//    for(var i=0;i<a.length;i++){
+//        console.log(a.item(i).innerHTML)
+//    }
+//    0:a
+//    length:1
+//    __proto__:HTMLCollection
+//        item:ƒ item()
+//        namedItem:ƒ namedItem()
+//    __proto__:Object
+//        hasOwnProperty: ƒ hasOwnProperty()
+//        isPrototypeOf: ƒ isPrototypeOf()
+//        propertyIsEnumerable: ƒ propertyIsEnumerable()
+//        toLocaleString: ƒ toLocaleString()
+//        toString: ƒ toString()
+//        valueOf: ƒ valueOf()
+
+//
+//    console.dir(document)
+//
+//    console.dir(window)
+//
+    var span=document.getElementById('ls');
+    console.dir(span)
+
+</script>
+</body>
+</html>

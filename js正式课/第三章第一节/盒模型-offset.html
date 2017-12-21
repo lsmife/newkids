@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>盒模型-offset</title>
+    <style type="text/css">
+        #outer{
+            width: 250px;
+            height: 250px;
+            padding:20px;
+            margin:100px;
+            border:15px solid #333;
+            background: orangered;
+        }
+        #inner{
+            padding:20px;
+            margin:20px;
+            border:15px solid #333;
+            background: green;
+        }
+        #center{
+            padding:20px;
+            margin:20px;
+            border:15px solid #333;
+            background: dodgerblue;
+        }
+    </style>
+</head>
+<body>
+<div id="outer">
+    <div id="inner">
+        <div id="center"></div>
+    </div>
+</div>
+<script>
+    var inner=document.getElementById('inner'),outer=document.getElementById('outer'),center=document.getElementById('center');
+    /*
+    //parentNode:DOM元素的上一级父级
+    console.log(center.parentNode);//inner
+    console.log(inner.parentNode);//outer
+    console.log(outer.parentNode);//body
+    console.log(document.body.parentNode);//Html
+    console.log(document.documentElement.parentNode);//#document
+    //offsetParent:DOM元素父级参照物,一个页面的所有父级参照都是body
+    console.log(center.offsetParent);//body
+    console.log(inner.offsetParent);//body
+    console.log(outer.offsetParent);//body
+    console.log(document.body.offsetParent);//null
+    console.log(document.documentElement.offsetParent);//null
+    //改变DOM元素的父级参照物，需要通过position CSS属性(absolute/relative/fixed都可以)进行改变
+
+    outer.style.position='relative'
+    console.log(center.offsetParent);//outer
+    console.log(inner.offsetParent);//outer
+    console.log(outer.offsetParent);//body
+
+    outer.style.position='relative'
+    inner.style.position='relative'
+    console.log(center.offsetParent);//inner
+    console.log(inner.offsetParent);//outer
+    console.log(outer.offsetParent);//body
+     */
+    //3、offsetTop/offsetLeft 当前元素（外边框）距离其父级参照物（内边框）的偏移量
+
+    outer.style.position='relative'
+    console.log(center.offsetLeft,center.offsetTop);//outer 95 95
+    console.log(inner.offsetLeft,inner.offsetTop);//outer 40 40
+    console.log(outer.offsetLeft,outer.offsetTop);//body 108 100
+
+    outer.style.position='relative'
+    inner.style.position='relative'
+    console.log(center.offsetLeft,center.offsetTop);//inner 40 40
+    console.log(inner.offsetLeft,inner.offsetTop);//outer 40 40
+    console.log(outer.offsetLeft,outer.offsetTop);//body 108 100
+
+    //不论父级参照物是什么，都要获取该元素距离body的偏移量,验算结果如图：盒模型-offset.png
+    //兼容：在标准的IE8浏览器中offsetLeft/offsetTop，已经把父级参照物的边框计算在内了
+    function getOffsetToBody(ele){//入参是当前元素，返回结果是距离body的左和上偏移
+        var left=null,top=null,parent=ele.offsetParent;
+        left+=ele.offsetLeft;
+        top+=ele.offsetTop;
+        while(parent!==null){
+            if(navigator.userAgent.indexOf("MSIE 8.0")===-1){
+                left+=parent.clientLeft;
+                top+=parent.clientTop;
+            }
+            left+=parent.offsetLeft;
+            top+=parent.offsetTop;
+            parent=parent.offsetParent;
+        }
+        return {left:left,top:top};
+    }
+    var centerOffset=getOffsetToBody(center);
+    console.log(centerOffset);
+</script>
+</body>
+</html>

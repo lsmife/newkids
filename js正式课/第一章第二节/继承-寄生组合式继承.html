@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>寄生组合式继承</title>
+</head>
+<body>
+<script>
+
+//    寄生组合式继承：私有继承私有的，公有继承公有的
+//    为了解决混合继承，重复继承了私有属性的问题
+//
+    function A(){
+        this.x=100;
+    }
+    A.prototype.getX=function(){};
+    function B(){
+        A.call(this)
+    };
+    B.prototype=objectCreate(A.prototype);
+//    B.prototype=Object.create(A.prototype); 移动端可以使用
+    B.prototype.constructor=B;
+
+    var f=new B;
+    console.dir(f);
+    function objectCreate(o){
+        function Fn(){};
+        Fn.prototype=o;
+        return new Fn;
+    }
+</script>
+
+</body>
+</html>

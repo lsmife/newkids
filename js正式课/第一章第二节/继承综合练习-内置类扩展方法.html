@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>继承综合练习-内置类扩展原型方法</title>
+</head>
+<body>
+<script>
+    /*
+    * 解决原型链的方法（三句话+画个图）
+    * 1、每个函数（类和普通函数）都是引用类型，都有一个prototype属性，这个属性的值是对象类型的
+    *   也都有一个__proto__指向Function.prototype，而Function.prototype的__proto指向Object.prototype
+    *
+    * 2、prototype天生有个属性constructor指向类本省
+    *
+    * 3、每个引用类型都有一个__proto__，指所属类的原型
+    * obj.prototype===Object.prototype
+    * Object->Object(){}构造函数
+    * 4、补充凡是没有 具体new的那个对象，一定是是Object的一个实例，__proto__指向Object.prototype
+    * */
+    var ary=[12,34,56,45];
+    ary.pop();//删除了一个元素；this->ary
+    ary.__proto__.pop()//没有删除元素；this->ary.__proto__;this->Array.prototype
+//    模拟内置类方法
+//    Array.prototype.pop=function(){
+//        this.length--;
+//    }
+//    上面可以看出，内置类方法采用的是this的写法，而直接调用原型方法this的指向并不是实例，所以无法删除
+//    数组原型自定义去重方法
+    Array.prototype.unique_ls=function unique_ls(){
+        var obj={};
+        for(var i=0;i<this.length;i++){
+            var cur=this[i];
+            if(obj[cur]==cur){
+                this[i]=this[this.length-1];
+                this.length--;
+                i--;
+                continue;
+            }
+            obj[cur]=cur;
+        }
+        obj=null;
+        return this;
+    }
+    var a=[34,34,23,12,34,23,12,56,3,4,3,2,2,4,5,6,7,8,9,6,5,6,5];
+    console.log(a.unique_ls())
+    console.dir(a);//浏览器中查看结果
+    function Fn(num){
+        this.x=this.y=num;
+    }
+    Fn.prototype={
+        x:20,
+        sum:function(){
+            console.log(this.x+this.y);
+        }
+    }
+    var f=new Fn(10);
+    console.log(f.sum===Fn.prototype.sum)//true
+    f.sum();//20
+    Fn.prototype.sum();// NaN this->Fn.prototype,x->20;y->没有所以undefined
+    console.log(f.constructor)//->Object 没有指向当前类，向上查找，找到Object
+</script>
+</body>
+</html>

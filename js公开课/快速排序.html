@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>快速排序</title>
+</head>
+<body>
+<script>
+    /*
+    * 快速排序
+    * 特点：
+    * 原理：
+    * 1、选取基准点（一般选择中间的）
+    * 2、比基准点小的在左侧组成新数组，比基准点大的在右侧组成新数组
+    * 3、新数组接着进行上述的1，2步,直到剩余项为1项或者0项的数组的时候返回该数组就行
+    *
+    * */
+    function sortQuick(ary){ //递归一定得设置一个跳出条件
+        var baseIndex= Math.floor(ary.length/2);
+        if(baseIndex===0){ //只有一项或者0项的时候不进行分拆，直接返回该数组即可
+            return ary;
+        }
+        var base=ary.splice(baseIndex,1);
+        var smaller=[],bigger=[];
+        for(var i=0;i<ary.length;i++){
+            ary[i]>base ? bigger.push(ary[i]) : smaller.push(ary[i]);
+        }
+        return arguments.callee(smaller).concat(base,arguments.callee(bigger));
+    }
+    var arys=[12,23,21,11,9,7,34,59,3,2,6,99,32,25,23];
+    var arysSort=sortQuick(arys);
+    console.log(arysSort)
+    /*
+       var ary=[5,8,6,3,2]
+    * 推理过程
+    * 递归的推理过程
+    * 1、使用正向推理，如递归章节的介绍
+    * 2、每个函数执行都开辟新的执行空间，通过画图可以清晰递归及返回路劲
+    * 1、[5,3,2]6[8]
+    * 2、[2]3[5]6[8]
+    * 3、23568
+    *
+    *
+    *
+    *
+    * */
+</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数组sort深入</title>
+</head>
+<body>
+<script>
+//    回调函数：把一个函数A当做参数传入到另一个函数B，B执行的过程中执行A，A执行次数和时间不确定，根据需要定
+    var ary=[12,34,56,78,90,23,35,46];
+    ary.sort(function(a,b){
+//        console.log(a,b)
+//        a每次执行时找到的当前项，b是当前项的后一项
+//        return a-b;//升序 如果a>b a-b>0 交换位置
+//        return b-a;//降序 如果b>a b-a>0 交换位置
+//        return 大于0的数，让a和b交换位置，否则不动
+
+    })
+    ary.sort(function(a,b){
+        return 1//相当于ary.reverse
+    })
+
+    //实战：二维的排序方式
+    var arr=[
+        {"nick":"梁帅",height:14},
+        {"nick":"李帅帅",height:10},
+        {"nick":"王铎",height:9},
+        {"nick":"张三",height:58},
+        {"nick":"陈军",height:20},
+    ]
+
+    //数字升序
+    arr.sort(function(a,b){
+        return parseFloat(a.height)-parseFloat(b.height)
+    })
+    console.log(arr);
+
+    //数字将序
+    arr.sort(function(a,b){
+        return (parseFloat(a.height)-parseFloat(b.height))*-1;
+    })
+    console.log(arr);
+
+
+//    按照汉字顺序排序: str1.localCompare(str2)
+//    原理：首先转换为字母拼音，然后比较首字母的ASCII值，str1>str2则返回1
+//         如果字不同，音同，按照不同汉字的ASCII进行排序
+
+    //汉字降序
+    arr.sort(function(a,b){
+        return a.nick.localeCompare(b.nick); //'a'.localCompare('b') -> -1 相当于b-a>0
+    })
+    console.log(arr);
+
+    //汉字升序
+    arr.sort(function(a,b){
+        return a.nick.localeCompare(b.nick)*-1;
+    })
+    console.log(arr);
+
+//    关于排序方式的理解
+//    前一个入参>后一个入参就是升序，否则为降序
+//    a.localeCompare(b),字母a<b返回-1 和这个return a-b的顺序刚好相反，需要乘以-1
+var arr=[1,12,32,14,5,40,10]
+arr.sort(function(a,b){return -1}) //->[1, 12, 32, 14, 5, 40, 10] 不变
+arr.sort(function(a,b){return 1}) //->[10, 40, 5, 14, 32, 12, 1] reverse
+arr.sort(function(a,b){return a-b}) //->[1, 5, 10, 12, 14, 32, 40] 升序
+arr.sort(function(a,b){return (a-b)*-1}) //->[40, 32, 14, 12, 10, 5, 1] 降序
+arr.sort(function(a,b){return b-a}) //->[40, 32, 14, 12, 10, 5, 1] 降序
+
+</script>
+</body>
+</html>

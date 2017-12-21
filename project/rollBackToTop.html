@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>rollBackToTop</title>
+    <style>
+        html{
+            height:1000%;
+            width: 100%;
+            overflow: auto;
+            background:linear-gradient(to bottom, #fff 0%,yellow 50%, #000 100%);;
+        }
+        a{
+            display:none;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 40px;
+            border:1px solid orangered;
+            color: orangered;
+            cursor: pointer;
+            position:fixed;
+            right:20px;
+            top:50%;
+            margin-top:-20px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+
+</div>
+<a href="javascript:;" id="btnGo">GO</a>
+<script>
+/*
+ 滚动条滚动：鼠标点击滚动条上下的空白处及滚动条端点、鼠标滚轮滚动、鼠标拖动滚动条、鼠标点击页面空白处不放并向下/上拖动、键盘pageDown/pageUp、js代码（自动）
+ 总时间（duration）：500ms;
+ 总距离（distance）：document.documentElement.scrollTop||document.body.scrollTop;
+ 频率（interval）：10ms;
+ 步长（step）：(distance/duration)*interval
+ 次数（times）：duration/interval
+*/
+    var btnGo=document.getElementById('btnGo');
+    window.onscroll=setBtnGo;
+    function setBtnGo(){ //判断滚动超出一屏出现按钮
+        var cHeight=document.documentElement.clientHeight||document.body.clientHeight;
+        var curTop=document.documentElement.scrollTop||document.body.scrollTop;
+        btnGo.style.display=curTop>cHeight?'block':"none";
+    };
+    btnGo.onclick=function (){
+        this.style.display='none'; //点击时设置按钮隐藏
+        window.onscroll=null;//取消滚动绑定
+        rollBackToTop();
+    }
+    function rollBackToTop(){
+        var duration=500,interval=10;//设置
+        var distance=document.documentElement.scrollTop||document.body.scrollTop;
+        var step=(distance/duration)*interval;
+        var timer=window.setInterval(function(){
+            //获取当前滚动条位置
+            distance=document.documentElement.scrollTop||document.body.scrollTop;
+            if(distance===0){
+                window.clearInterval(timer);
+                window.onscroll=setBtnGo;
+                return;
+            }
+            distance-=step;//设置新的滚动位置
+            document.documentElement.scrollTop=distance;//滚动条滚动
+            document.body.scrollTop=distance;
+        },interval)
+    }
+//    setTimeout模仿setInterval
+//    var timer=null,n=0;
+//    move();
+//    function move(){
+//        console.log(n);
+//        n++;
+//        window.clearTimeout(timer);
+//        if(n>5){
+//            return;
+//        }
+//        timer=window.setTimeout(move,1000);
+//    }
+</script>
+</body>
+</html>

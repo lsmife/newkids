@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>继承-综合练习</title>
+</head>
+<body>
+<script>
+/*
+ function fn(){}
+ fn instanceof Object  //    true
+ fn instanceof Function //    true
+ Object instanceof Function //    true
+ Function instanceof Object //    true
+ 原型链this问题三部走
+ 1、确认this
+ 2、替换this
+ 3、原型查找
+*/
+function Fn(){
+    this.x=100; //this指向实例
+    this.getX=function(){
+        console.log(this.x)
+    };
+}
+Fn.prototype.getX=function(){
+    console.log(this.x);//函数执行时才能确认this的指向问题
+}
+Fn.prototype.setX=function(n){
+    this.x=n;
+}
+var f1=new Fn;
+f1.getX(); // this->f1;console.log(f1.x);私有100
+f1.__proto__.getX(); // this->f1.__proto__;console.log(f1.__proto__.x);公有没有undefined
+Fn.prototype.setX(300);//this.->Fn.prototype;Fn.prototype.x=300;
+f1.getX(); // this->f1;console.log(f1.x);私有100
+f1.__proto__.getX(); // this->f1.__proto__;console.log(f1.__proto__.x);300;
+f1.setX(500)//this->f1;f1.x=500,先找私有的，有私有设置为500，不在向上查找
+f1.getX(); // this->f1;console.log(f1.x);私有500
+f1.__proto__.getX(); // this->f1.__proto__;console.log(f1.__proto__.x);300;
+f1.y=100//f1增加私有属性和f2没有关系
+f1.__proto__.y=200//给原型增加属性y和f2有关系
+</script>
+</body>
+</html>

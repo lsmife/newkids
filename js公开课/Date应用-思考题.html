@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Date应用</title>
+</head>
+<body>
+<div id="time1"></div>
+<div id="timeMinus">点击倒计时</div>
+<script>
+    //目标时间转为标准的时间格式
+//    var tarTime=new Date('2017-02-02 12:23:23'); //IE6-8不支持
+//    var tarTime=new Date('2017/02/02 12:23:23');
+
+    //某时刻倒计时
+//    function calTime(time){
+//        var days=Math.floor(time/(60*60*24*1000));//parseInt(times/60)
+//        var hours=Math.floor((time%(60*60*24*1000))/(60*60*1000));//parseInt(times/60)
+//        var minutes=Math.floor(((time%(60*60*24*1000))%(60*60*1000))/(60*1000));//parseInt(times/60)
+//        var seconds=time%60;
+//        return addZero(days)+"天 "+addZero(hours)+"时 "+addZero(minutes)+"分 "+addZero(seconds)+"秒";
+//    }
+//    function timeMinus(times,event){
+
+//        第一种方式按照传入的未来的某个
+//        var tarTime=new Date(times);
+//        var curTime=new Date();
+//        var totalTime=tarTime-curTime;
+//        if(totalTime<0){
+//            event.innerHTML="时间应当大于当前时间";
+//            return;
+//        }
+
+//       第二种方式按照传入的某个时间区间例如：5天、5时、5分
+//       var times=5;
+        //按照时间段方式倒计时-分钟
+//        totalTime=times*60*1000;
+        //按照时间段方式倒计时-小时
+//        totalTime=times*60*60*1000;
+        //按照时间段方式倒计时-天
+//        totalTime=times*24*60*60*1000;
+//
+//        event.innerHTML=calTime(totalTime);
+//        var timer=window.setInterval(function(){
+//            if(totalTime===0){
+//                window.clearInterval(timer);
+//                return;
+//            }
+//            totalTime--;
+//
+//            event.innerHTML=calTime(totalTime);
+//
+//        },1000)
+//    }
+//    var tMinus=document.getElementById('timeMinus');
+//    tMinus.onclick=function(){
+//        var event=this;
+//        timeMinus('2017/10/01 00:00:00',event);
+//    };
+//
+//    //页面时钟
+//    var time=document.getElementById('time1');
+//    window.setInterval(function(){
+//        time.innerHTML=getLocalDate();
+//    },1000);
+//    function getLocalDate(){
+//        var time=new Date();
+//        var year=time.getFullYear();
+//        var month=time.getMonth();
+//        var date=time.getDate();
+//        var day=time.getDay();
+//        var wStr="日一二三四五六", week=wStr.charAt(day);
+//        var hours=time.getHours();
+//        var minutes=time.getMinutes();
+//        var seconds=time.getSeconds();
+//        var minliSeconds=time.getMilliseconds();
+//        return year+"年"+addZero(month+1)+"月"+addZero(date)+"日 星期"+week+" "+addZero(hours)+"时"+addZero(minutes)+"分"+addZero(seconds)+"秒";
+//    }
+//    function addZero(value){
+//        return value<10?"0"+value:value;
+//    }
+//思考题：暂停与恢复倒计时
+//    知识点
+//    new Date('2017/12/01') - new Date('2017/01/01')//28857600000
+//    new Date('2017/12') - new Date('2017/01/01')//28857600000
+//    Date.parse('2017/12') //1512057600000
+//    var a=new Date('2017/12')
+//    a.getTime()//1512057600000
+
+    //剩余时间的2中计算方法
+//    var aTime=new Date('2017/12/01 11:30:20');
+//    var bTime=new Date()
+
+//    var diff=aTime.getTime()-bTime.getTime() //第一种方法
+//    var diff=aTime - bTime;//第二种方法
+
+//    var hours=Math.floor(diff/(1000*60*60));
+
+//    var diffTime=diff-hours*1000*60*60;//第一种方法
+//    var diffTimes=Math.floor(diff%(1000*60*60))//第二种方法
+
+//    console.log(diffTime===diffTimes)//-> true;
+</script>
+</body>
+</html>

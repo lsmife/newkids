@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS盒子模型属性</title>
+</head>
+<body>
+<script>
+   /*
+    一、JS盒模型
+        固定宽高：指定内容宽高width/height；不指定内容宽高自适应
+        真实宽高：指定宽高，溢出部分
+        1、client系列(当前元素私有属性，和溢出内容没有关系；只读属性)
+          clientWidth:
+            chrome：width+padding(paddingLeft+paddingRight)
+          clientHeight
+            chrome：height+padding(paddingLeft+paddingRight)
+          clientLeft
+            chrome:borderLeftWidth
+          clientTop
+            chrome:borderTopWidth
+        2、offset系列(只读属性)
+          offsetWidth
+            chrome:clientWidth+borderWidth(borderLeftWidth+borderRightWidth)
+          offsetHeight
+            chrome:clientHeight+borderWidth(borderTopWidth+borderBottomWidth)
+          offsetParent:当前元素的父级参照物
+          offsetLeft:当前元素外边框距离父级参照物的偏移量
+          offsetTop:当前元素外边框距离父级参照物的偏移量
+        3、scroll系列
+          scrollHeight(只读属性)
+            chrome:
+              没有内容溢出的情况：同clientHeight
+              内容溢出的情况：真实内容的高度+paddingTop
+          scrollWidth(只读属性)
+            chrome:
+              没有内容溢出的情况：同clientWidth
+              内容溢出的情况：真实内容的宽度+paddingLeft
+          注意：在有溢出的情况下获取的内容都是估值
+               1、是否设置样式"overflow:hidden"会对获取值结果产生影响
+               2、在不同的浏览器结果也是不同的
+          scrollLeft:滚动条卷去的宽度(可读写属性)
+          scrollTop:滚动条卷去的高度(可读写属性)
+
+      二、关于盒模型取值问题
+        浏览器在获取结果时，对真实结果进行四舍五入（Math.round），所以通过上面的盒模型属性只能获取到整数；
+      三、关于操作浏览器本身的盒子模型
+          document.documentElement.clientWidth:浏览器可是窗口的宽度
+          document.documentElement.clientHeight:浏览器可是窗口的高度
+          document.documentElement.scrollHeight:当前页面的实际高度估值（可视区域和溢出区域）
+          document.documentElement.scrollTop:当前页面的卷曲的高度（可视区域和溢出区域）
+          document.body.scrollTop:当前页面的卷曲的高度（可视区域和溢出区域）
+          获取或者设置浏览器盒模型信息，兼容所有浏览器的方式（书写严格按照顺序）
+            document.documentElement[attr]||document.body[attr]
+          获取(写2套)：
+            document.documentElement.clientWidth||document.body.clientWidth
+            document.documentElement.clientHeight||document.body.clientHeight
+            document.documentElement.scrollTop||document.body.scrollTop
+          设置(写2套)：
+            document.documentElement.scrollTop=0
+            document.body.scrollTop=0
+          封装方法：
+            function windowAttr(attr,value){//获取和设置浏览器本身属性的方法兼容版
+                if(typeof value === 'undefined'){
+                    return document.documentElement[attr]||document.body[attr];
+                }else{
+                    document.documentElement[attr]=value;
+                    document.body[attr]=value;
+                }
+            }
+    */
+
+</script>
+</body>
+</html>

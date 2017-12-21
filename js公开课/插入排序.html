@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>插入排序</title>
+</head>
+<body>
+<script>
+    /*
+    * 插入排序
+    * 原理：扑克牌思想
+    * 首先那一张牌，然后再取牌，取出牌后与手里面牌从右往左依次进行比较，
+    * 如果小了那就放到左侧，大了就放到右侧
+    * */
+    function sortInsert(ary){
+        var sortAry=[];
+        var base=ary[0];//先拿第一张牌
+            sortAry.push(base); //已经抓起的牌
+        for (var i=1;i<ary.length;i++){ //逐个拿剩下的牌
+            var cur=ary[i]; //抓到牌后，从左到右进行比较，左边放最小的
+            for(var j=0;j<sortAry.length;j++){
+                if(cur<=sortAry[j]){ //顺序是从小到大，所以从前往后比，只要发现前面有比他大的就放到这个位置，并且结束这回比较
+                    sortAry.splice(j,0,cur);
+                    break;
+                }
+//                if(j==sortAry.length-1){ //if的判断再这里是有问题的，在第一项时，满足该条件，但是后面的push把数组的长度该变量加长了1，导致j在判断时依然满足条件，所有又执行了一边后面的语句，执行后的语句满足了第一个条件所以跳出了循环，所以判断时一定是在循环体外判断j达到极限值才没有问题
+//                    sortAry.push(cur);//否则把所有的已经有的牌都进行了比较，都不满足第一个条件，则放到末尾
+//                }
+            }
+            if(j==sortAry.length){
+                sortAry.push(cur);//否则把所有的已经有的牌都进行了比较，都不满足第一个条件，则放到末尾
+            }
+
+        }
+        return sortAry;
+    }
+
+    function sortInsertAnother(ary){
+        var sortAry=[];
+        var base=ary[0];//先拿第一张牌
+        sortAry.push(base); //已经抓起的牌
+        for (var i=1;i<ary.length;i++){ //逐个拿剩下的牌
+            for(var j=sortAry.length-1;j>=0;j--){
+                var cur=ary[i]; //抓到牌后，从右到左进行比较，右边放最大的
+                if(cur>=sortAry[j]){ //顺序是从小到大，所以从后往前比，只要发现前面有比他小的就放到这个位置后面，并且结束这回比较
+                    sortAry.splice(j+1,0,cur);
+                    break;
+                }
+            }
+            if(j===-1){ //j==-1时放到外面
+                sortAry.unshift(cur);//否则把所有的已经有的牌都进行了比较，都不满足第一个体检，则放到末尾
+            }
+        }
+        return sortAry;
+    }
+    var arys=[10,3,23,12,34,23,11,2,9,0,8,6,0,9,34,56,87,34,90,32]
+    var sortArys=sortInsert(arys);
+    var sortArysA=sortInsertAnother(arys);
+    var sortArysB=inserSortB(arys);
+    console.log(sortArys);
+    console.log(sortArysA);
+    console.log(sortArysB);
+    /*重点：后->前 发现小的放到小的后面
+           前->后 发现大的放到大的这里
+    */
+
+    //思考题：
+    function inserSortB(ary){
+        var key,j;
+        for(var i=1;i<ary.length;i++){
+            key=ary[i];
+            j=i-1;
+            while(j>-1&&ary[j]>key){
+                ary[j+1]=ary[j];
+                j--;
+            }
+            ary[j+1]=key;
+        }
+        return ary;
+
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Object.create()</title>
+</head>
+<body>
+<div id="div1">lsmife</div>
+<script>
+    /*
+    *
+    *
+
+    1、forIn循环可以遍历私有属性、原型上的自定义属性
+       原型上的自定义属性：
+            构造函数->所属类原型上的公共属性;
+            Object->Object(基类)上的自定义属性
+    2、propertyIsEnumerable/hasOwnProperty只保留私有属性
+    建立私有属性即建立对象的方式：
+        1、var obj=new Object;
+         obj.x=100;
+         console.log(obj);//->{x: 100}
+        2、var objnew={
+            x:100
+         }
+         console.log(objnew);//->{x: 100}
+        3、var objold=new Object({x:100})
+         console.log(objold)//->{x: 100}
+    function Fn(){
+        this.nick="lsmife";
+        this.age=18;
+    }
+    Fn.prototype.gender="男";
+    Object.prototype.getAge=function(){
+
+    };
+    var f =new Fn;
+    for(var key in f){
+        console.log(key+":"+f[key]);
+    }
+    //->
+        nick:lsmife
+        age:18
+        gender:男
+        getAge:function (){}
+
+     for(var key in f){
+        if(f.propertyIsEnumerable(key)){
+            console.log(key+":"+f[key]);
+        }
+     }
+     //->
+         nick:lsmife
+         age:18
+
+     var obj={
+         nick:"lsmife",
+         age:18,
+     }
+     Object.prototype.lsmife=function(){console.log("自定义方法")}
+     for(var key in obj){
+        console.log(key+":"+obj[key]);
+     }
+     //->
+//     nick:lsmife
+//     age:18
+//     lsmife:function(){console.log("自定义方法")}
+
+    for(var key in obj){
+        if(obj.propertyIsEnumerable(key)){
+            console.log(key+":"+obj[key]);
+        }
+    }
+//    //->
+//         nick:lsmife
+//         age:18
+
+
+    var num1=1;
+    var num2=new Number(1);
+    console.log(typeof num1)//->number
+    console.log(typeof num2)//->object
+
+
+   Object.create(obj)//
+   1、相当于new 一个实例，但是指定obj为这个实例的原型，obj的私有属性变成了实例的公有属性
+      如果obj中指定了constructor为Fn，那么就是new一个Fn的实例，Fn的prototype是obj，否则是Object的一个实例
+      无论是Fn还是Object，它们的__proto__指向Object.prototype 如图
+   2、var obj3=Object.create(obj)
+      obj3克隆一个obj,但是区别在于，obj的私有属性变成了obj3的公有属性，forIn可以遍历，hasOwnProperty会过滤掉公有属性
+   3、IE6-8不兼容 es5的方法
+    var obj={
+        constructor:Fn,
+        getX:function(){}
+    }
+    function Fn() {
+        this.x=100;
+    }
+    Fn.prototype=obj;
+    var obj2=Object.create(obj);
+    var obj3=new Fn
+    for(var key in obj2){
+        if(obj2.hasOwnProperty(key)){
+            console.log(key+":"+obj2[key])
+        }
+    }
+
+    // 改造Object.create()方法
+    // 下面的代码失败了，原因:obj和字符串拼接时obj=[object Object]
+    //                   eval 执行return语法出问题 Illegal return statement
+    function objectCreate(proObj){
+        var obj=proObj;
+        var constructors=obj['constructor'].name;
+        eval('function '+constructors+'(){};' +
+        constructors+'.prototype='+obj+';' +
+        'return new '+constructors+';')
+    }
+    var obj={
+        constructor:Fn,
+        getX:function(){}
+    }
+    function Fn(){
+        console.log()
+    }
+    var newobj=objectCreate(obj);
+     */
+
+//    var obj=document.getElementById('div1')
+//    console.dir(obj)
+
+
+</script>
+</body>
+</html>

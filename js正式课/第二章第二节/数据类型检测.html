@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据类型检测</title>
+</head>
+<body>
+<script type="text/javascript">
+/*
+ 一、typeof
+     返回类型字符串："number","string","boolean","null","undefined","function","object"
+     局限性: 1、console.log(typeof typeof typeof 123) //->string2个及以上的typeof返回的永远是string
+            2、console.log(typeof null)//->object 对于对象类型的数据，返回的都是object
+     function fn(callback){
+        typeof callback==='function'?callback():null;
+        //    callback && callback(); //逻辑运算
+     }
+     fn(function(){}); fn(true);
+
+     function(n1,n2){
+        if(typeof n2==='undefined'){
+            n2=0;
+        }
+        // n2=n2||0; //逻辑运算,不是所有情况都可以用 fn(10,false)
+     }
+     fn(10) fn(10,false)
+ 二、instanceof 检测实例属于某个类
+     null instanceof Null//-> 报错 Null is undefined
+     null instanceof Undefined//-> 报错 Undefined is undefined
+     有这两个类，浏览器不允许访问
+
+    [1,2].instanceof(Array)
+    局限性：
+        对于数据类型检测，通过字面量方式创建的基础数据类型和通过构造对象方式创建的基础数据类型是有区别的
+        严格意义上通过构造函数的方式创建的实例才是真正的该数据类型的一个实例,但是由于JS的松散性，通过都可以使用Number.prototype上的方法
+        typeof 1 ->Number typeof new Number(1) ->object
+        1、 不能检测基本字面量建的基本数据类型
+        2、只要在当前实例的原型链上，检测结果都为true,如果手动改变了原型链继承，检测结果也发生了变化
+         function Fn(){}
+         Fn.prototype=new Array();
+         var f=new Fn()
+         f instanceof Array //->true
+
+
+
+         思考题：创建一个类数组（有索引和length），和数组方法（Array.prototype）
+
+    三、constructor 构造函数和instanceof相似,一般不用constructor
+        var obj=[12];
+        obj.constructor==='Array' //->false
+        obj.constructor===Array //->true
+        obj.constructor===Object //->false//原型上面，先私有，私有没有才会Object
+        可以检测基础数据类型，并且一般只检测私有的constructor
+        局限性：重写类的原型：很可能覆盖了constructor,这样检测的结果不准确
+         function Fn(){}
+         Fn.prototype=new Array();
+         var f=new Fn()
+         f.constructor===Array //->true
+
+    四、Object.prototype.toString.call() //最准确、最常用的方式
+       首先获取Object.prototype上的方法toString，改变toString的this指向，并且toString执行
+
+    五、toString()的理解:有时候toString是转换为字符串，但有时候不是
+        console.log((1).toString()）->"1"//Number.prototype.toString()->转换为字符串
+        console.log((1).__proto__.__proto__.toString()）->"[object Object]"//Object.prototype.toString()->不是转换为字符串
+        1、Number、RegExp、Boolean、Date、String、Array、function的toString方法将数据类型转换为字符串
+        2、Object的toString方法不是转换字符串，返回当前方法执行主体所属类信息[object Object]
+        ({name:"lsmife"}).toString() //->"[object Object]"
+        第一个object：代表当前数据类型是object类型的是固定写死的
+        第二个Object：代表当前对象的所属类型
+           Math.toString() ->"[object Math]"
+          ({name:"lsmife"}).toString() ->"[object Object]"
+        console.log(Object.prototype.toString.call(""))//->[object String];
+        console.log(Object.prototype.toString.call("lsmife"))//->[object String];
+        console.log(Object.prototype.toString.call([1,2]))//->[object Array];
+        console.log(Object.prototype.toString.call({name:"lsmife"}))//->[object Object];
+        console.log(Object.prototype.toString.call(12))//->[object Number];
+        console.log(Object.prototype.toString.call(null))//->[object Null];
+        console.log(Object.prototype.toString.call(undefined))//->[object Undefined];
+        console.log(Object.prototype.toString.call(/^$/))//->[object RegExp];
+        console.log(Object.prototype.toString.call(Math))//->[object Math];
+        console.log(Object.prototype.toString.call(new Date()))//->[object Date];
+        console.log(Object.prototype.toString.call(function(){}))//->[object Function];
+ */
+
+
+
+</script>
+</body>
+</html>

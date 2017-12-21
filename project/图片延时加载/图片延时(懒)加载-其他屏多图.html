@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--meta:vp tab自动补全-->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>图片延时(懒)加载-其他屏多图</title>
+    <style>
+        *{
+            padding:0;
+            margin:0;
+            font-size:14px;
+            font-family:'微软雅黑';
+        }
+        ul,li{
+            list-style:none;
+        }
+        img{
+            display:block;
+            border:none;
+        }
+        .newslist{
+            padding:10px;
+        }
+        .newslist li{
+            height: 60px;
+            padding:10px 0;
+            border-bottom:1px solid #ccc;
+            position:relative;
+        }
+        .newslist li>div:nth-child(1){
+            position:absolute;
+            top:10px;
+            left:0;
+            width:75px;
+            height: 60px;
+            background: #ddd url(./images/default.png) no-repeat center center;
+            background-size:100% 100%;
+        }
+        .newslist li>div:nth-child(1) img{
+            width: 100%;
+            height: 100%;
+            display:none;
+        }
+        .newslist li>div:nth-child(2){
+            margin-left:80px;
+            height: 60px;
+        }
+        .newslist li>div:nth-child(2) h2{
+            height: 24px;
+            line-height: 24px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;:
+        }
+        .newslist li>div:nth-child(2) p{
+            height: 18px;
+            line-height: 18px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;:
+        }
+    </style>
+</head>
+<body>
+<ul class="newslist" id="newslist">
+    <li>
+        <div><img src="./images/timg01.jpeg" alt=""></div>
+        <div>
+            <h2>进入新时代！习近平十九大报告全文</h2>
+            <p>中国共产党第十九次全国代表大会在京开幕 习近平代表第十八届中央委员会向大会作报告 李克强主持大会</p>
+        </div>
+    </li>
+    <li>
+        <div><img src="./images/timg02.jpeg" alt=""></div>
+        <div>
+            <h2>习近平同志参加党的十九大贵州省代表团讨论</h2>
+            <p>习近平在参加党的十九大贵州省代表团讨论时强调 万众一心开拓进取 把新时代中国特色社会主义推向前进</p>
+        </div>
+    </li>
+    <li>
+        <div><img src="./images/timg03.jpeg" alt=""></div>
+        <div>
+            <h2>习近平参加贵州代表团讨论</h2>
+            <p>习近平在参加党的十九大贵州省代表团讨论时强调 万众一心开拓进取 把新时代中国特色社会主义推向前进 </p>
+        </div>
+    </li>
+</ul>
+<script>
+    
+</script>
+</body>
+</html>

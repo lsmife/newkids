@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据类型补充</title>
+</head>
+<style>
+    #div1{
+        border:1px solid #ddd;
+        width:200px;
+        height: 200px;
+    }
+</style>
+<body>
+<div id="div1"></div>
+<script>
+    /*
+    *
+    * */
+    var oDiv=document.getElementById('div1');
+    oDiv.style.width='200px';
+    oDiv.style.height='200px';
+    oDiv.style.border='1px solid #ddd' ;
+    oDiv.onclick=function(){
+//        style属性只能获取行内样式，其他的样式不能获取，通过style方法设置的样式也是行内样式而非其他
+//        console.log(this.style.width) //-> 空
+
+//        this.style.backgroundColor='red';
+//        var a=this.style.backgroundColor,a='red'; //基础数据类型，不能改变原对象的属性值
+
+//        var b=this.style;
+//        b.backgroundColor='red';
+//
+//        var c=this;
+//        c.style.backgroundColor='red';
+    }
+    console.dir(oDiv) //看style属性，对应的值也是一个对象
+
+</script>
+</body>
+</html>

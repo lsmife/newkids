@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取4为随机字符验证码</title>
+    <style>
+        #code{
+            width: 90px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 20px;
+            text-align: center;
+            letter-spacing: 4px;
+            border:1px solid orangered;
+            margin:auto;
+            cursor:pointer;
+        }
+    </style>
+</head>
+<div id="code" ></div>
+<body>
+<script>
+
+    var codeBtn=document.getElementById('code');
+
+    codeBtn.onclick= function(){
+        this.innerHTML=getCode();
+    };
+
+    codeBtn.innerHTML=getCode();
+
+    function getCode(){
+        var codeStr="abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        var strRandom="";
+        for(var i=0;i<4;i++){
+            var code=codeStr.charAt(getRandom(0,61));
+            if(strRandom.indexOf(code)>-1){
+                i--;
+                continue;
+            }
+            strRandom+=code;
+        }
+        return strRandom;
+    };
+
+    function getRandom(m,n){
+        var m=Number(m);
+        var n=Number(n);
+        if(isNaN(n)||isNaN(m)){
+            return Math.random();
+        }
+        return Math.round(Math.random()*Math.abs(m-n)+Math.min(m,n))
+    }
+</script>
+</body>
+</html>

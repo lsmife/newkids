@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>字符串</title>
+</head>
+<body>
+<script>
+    //String
+    //1、存在length属性和索引
+//    var str="welcome to beijing , hello beijing !";
+//    for(var i=0;i<str.length;i++){
+//        console.log("\""+str.charAt(i)+"\":"+str.charCodeAt(i))
+//    }
+    //2、字符串截取
+//    subStr(n,m)//从n开始，截取m个字符
+//    subString(n,m)//截取[n,m)个字符
+//    slice(n,m)//截取[n,m)个字符,支持负数索引;str.length+负数索引-》实际索引
+//    console.log(str.substr(0,19))
+//    console.log(str.slice(0,19))
+//    console.log(str.substring(0,19))
+//    console.log(str.length);
+//    console.log(str.slice(-11,-2));
+//    console.log(str.slice(str.length-11,str.length-2));
+    //3、获取字符串索引
+    //indexOf  字符出现的第一个位置
+    //lastIndexOf 字符出现的最后一个位置
+    //没有则返回-1，经常用来判断字符串是否包含某字符
+    //4、大小写转换
+//    str.toLowerCase()
+//    str.toUpperCase()
+    //5、替换
+//    str.replace('target',newStr) //只能替换第一个匹配的
+//    target 可以是字符，字符串，正则
+    //正则可以全局匹配并进行全局替换
+    //6、字符串分割
+//    var str="lsmife";
+//    console.log(str.split(''));
+//    console.log(str.split(/\B/g));
+//    var str="l s m h i s";
+//    console.log(str.split(' '));
+//    var str="l+s+m+h+i+s";
+//    console.log(str.split('+'));
+//    var str='lsmife lshis llkey ll'
+//    //7、match 正则
+//    console.log(str.match(/is/g))// -> ['is']
+//    //8、search
+//    console.log(str.search(/ll/g))//->13 第一个匹配到的索引值
+//    //格式化日期
+//    function format(){
+//        var reg=/^(\d{4})(?:-|\/|\.|:)(\d{1,2})(?:-|\/|\.|:)(\d{1,2})(?:\s+)(\d{1,2})(?:-|\/|\.|:)(\d{1,2})$/
+//    }
+    //格式化日期
+//    function formats(){
+//        var reg=/^(\d{4})(?:-|\/|\.|:)(\d{1,2})(?:-|\/|\.|:)(\d{1,2})(?:\s+)(\d{1,2})(?:-|\/|\.|:)(\d{1,2})(?:-|\/|\.|:)(\d{1,2})$/g;
+//        var ary=[],that=arguments[0];
+//        that.replace(reg,function(){
+//            for(var i=1;i<=6;i++){
+//                var cur=Number(arguments[i]);
+//                cur=cur>10?cur:"0"+cur;
+//                ary.push(cur);
+//            }
+//        });
+////        console.log(ary)
+//        var format=arguments[1] || "{0}年{1}月{2}日 {3}:{4}:{5}";
+//        return format.replace(/{(\d+)}/g,function(){
+//            console.log(arguments)
+//            return ary[arguments[1]];
+//        })
+//    }
+//
+//    var str="2017-2-3 12:30:00";
+//    console.log(formats(str,"{0}年{1}月{2}日"))
+
+//    var reg=/^(\d{4})(?:-|\/|\.|:)(\d{1,2})(?:-|\/|\.|:)(\d{1,2})(?:\s+)(\d{1,2})(?:-|\/|\.|:)(\d{1,2})(?:-|\/|\.|:)(\d{1,2})$/g;
+//    str.replace(reg,function(){
+//        console.log(arguments)
+//    })
+
+//    replace探究
+    var arr=['B','C','D']
+    var str="lsmife lshis lsoomi";
+    var newS=str.replace(/(ls)/g,function(){
+        console.log(arguments)
+        return '000'
+    })
+    console.log(str);
+    console.log(newS);
+</script>
+</body>
+</html>

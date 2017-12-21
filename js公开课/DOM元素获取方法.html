@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dom获取方法</title>
+</head>
+<body>
+DOM：Document Object Model 文档对象模型(树状)
+<input type="text" name="tab">
+<div id="tab">
+    <ul>
+        <li>news</li>
+        <li>videos</li>
+        <li>audios</li>
+    </ul>
+    <div>this is news</div>
+    <div>this is videos</div>
+    <div>this is audios</div>
+</div>
+<script>
+    /*
+    * 获取元素的方法
+    *
+    * context:上下文，当前可以获取元素的范围，可以自行限定
+    * document.getElementById //context只能为document
+    * document.getElementsByName //context只能为document
+    * context.getElementsByClassName //context可以为任何元素IE6-8不兼容
+    * context.getElementsByTagName //context可以为任何元素IE中只对表单起作用
+    * document.body
+    * document.documentElement
+    * document.querySelector  //IE6-8不兼容,通过他获取的节点不存在DOM映射关系
+    * document.querySelectorAll  //IE6-8不兼容,通过他获取的节点不存在DOM映射关系
+    * 描述节点和节点之间的属性和关系（标准浏览器下，空格和换行是文本节点）
+    * childNodes
+    * children//IE6-8与标准的不一致
+    * parentNode
+    * previousSibling/previousElementSibling//带Element的再IE6-8不兼容
+    * nextSibling/nextElementSibling//带Element的再IE6-8不兼容
+    * 一、通过元素ID属性，获取一个元素
+    * document.getElementById("tab")
+    * 没有返回null,其中id是区分大小写的，因为js是严格区分大小写的
+    * 兼容：
+    * 1、如果id再页面中存在多个，该方法，只能获取到第一个
+    * 2、IE6,7会把input的name属性当做id
+    * 3、IE6,7不区分id的大小写
+    * 项目实战规范避免兼容问题：
+    * 1）表单元素name和id,不能同名
+    * 2）不使用同名的大小写来代表不同的元素
+    * 4、直接使用元素的id(不推荐)
+    * console.log(tab)
+    * 二、通过元素的标签名,获取一组元素
+    * context.getElementsByTagName("li")
+    * document是上下文(context)，
+    * 1、改变上下文为tab
+    * var oTab=document.getElementById("tab");
+    * var oLis=oTab.getElementsByTagNames("li");
+    * oLis-》类数组
+    * oLis.length=>oLis["length"]获取元素个数
+    * oLis[0]=>oLis.item(0)获取第一个元素
+    * */
+
+</script>
+<label >三、通过元素的name属性</label>
+<input type="radio" name="gender" value="男" checked="true" >男
+<input type="radio" name="gender" value="女">女
+<script>
+    /*
+     * var checks=document.getElementsByName('checks')
+     * 兼容：
+     * 1、所有IE浏览下，只用于获取表单元素,所以方法最好用于获取表单元素
+     */
+    var oGender=document.getElementsByName('gender');
+    var cur='';
+    for(var i=0;i<oGender.length;i++){
+        if(oGender.item(i).checked===true){
+            cur=oGender.item(i).value;
+            break;//单选框只能一个被选中,一旦找到后边无需再找退出循环即可，性能优化
+        }
+    }
+    console.log(cur)
+</script>
+<label >四、通过元素的class属性</label>
+<script>
+    /*
+     * var checks=context.getElementsByClassName('list')
+     * 兼容：
+     * 1、所有IE6-8浏览下报错
+     * 类数组
+     */
+</script>
+<label >五、获取html、body</label>
+<script>
+    /*
+     * document.body             //body
+     * document.documentElement //Html
+     * 兼容：
+     * 1、兼容所有浏览器获取当前屏幕的宽度和高度
+     * var curHeight=document.body.clientHeight || document.documentElement.clientHeight;
+     * var curWidth=document.body.clientWidth || document.documentElement.clientWidth;
+     */
+</script>
+<label >六、移动端下获取元素的常用方法(ie6-8不支持),等同于jq的选择器</label>
+<script>
+    /*
+     * document.querySelector() //获取一个
+     * document.querySelectorAll() //获取多个，类数组
+     * document.querySelector('#tab')
+     * document.querySelectorAll('.tab')
+     * document.querySelectorAll('#tab li')
+     */
+</script>
+</body>
+</html>

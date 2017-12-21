@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取盒模型样式</title>
+    <style>
+        #box{
+            width:300px;
+            height:200px;
+            border:20px solid #ddd;
+            padding:20px;
+            margin:100px;
+        }
+        #box:after{
+            display: block;
+            content:"为类别"
+        }
+    </style>
+</head>
+<div id="box">
+    jljkjkjkjkjsdlkjfkjjkjllkjkj
+    就离开就快了接口就看见两节课极乐空间理解了框架快捷键拉开距离框架    库刻录机 空间看看
+</div>
+<body>
+<script>
+    /*
+     1、style：只能获取盒模型的行内样式，无法获取样式表的样式
+     2、window提供的一个属性getComputedStyle获取所有经过浏览器计算过的样式[IE6-8不兼容]
+        所有：在当前页面中渲染的所有标签的所有样式包括浏览器自动添加的样式
+        window.getComputedStyle(DOM元素,伪类) // 返回CSSStyleDeclaration对象，包含所有属性，包括你未设置值的属性、浏览器自动添加的样式
+        IE6-8下使用 元素.currentStyle实现上面的功能
+        兼容方法：
+        1)、使用try catch处理兼容（万不得已的情况下使用，消耗性能）
+            前提try需要在不兼容的情况下执行报错才可以
+            不管什么浏览器，try的代码一定要执行(消耗性能)
+         function getCssStyle(box,attr){//获取元素的样式兼容（元素，css属性）
+             try{
+                //undefined()报错
+                return window.getComputedStyle(box,null)[attr];
+             }catch(e){
+                return box.currentStyle[attr];
+             }
+         }
+         2)、function getCssStyle(box,attr){//获取元素的样式兼容（元素，css属性）
+              var val=null;
+              if(getComputedStyle in window){//检测属性是否属于这个对象 if(typeof window.getComputedStyle==='undefined') if(window.getComputedStyle)
+                 if(attr==='opacity'){ //针对IE进行的处理
+                    val=box.currentStyle['filter'];
+                    reg=/^alpha\(opacity=(\d+(?:\.\d+)?)\)$/i;
+                    val=reg.test(val)?reg.exec(val)[1]/100:1;
+                 }else{
+                    val=box.currentStyle[attr];
+                 }
+               }else{
+                    val=window.getComputedStyle(box,null)[attr];
+               }
+               reg=/^(-?\d+(\.\d+)?)(px|rem|pt|em)?$/i;//对符合规则的值进行去单位,去单位，为了方便计算,有些能去单位，有些不能去单位
+               return reg.test(val)?parseFloat(val):val;
+            }
+          3)、已经明确知道getComputedStyle只在IE6-8下不兼容，所以只需要检测浏览器版本即可
+             检测浏览器信息  window.navigator
+             检测浏览器版本信息 window.navigator.userAgent
+             function getCssStyle(box,attr){//获取元素的样式兼容（元素，css属性）
+                var val=null,reg=null;
+                if(/MSIE (6|7|8)/.test(window.navigator.userAgent)){//检测属性是否属于这个对象 if(typeof window.getComputedStyle==='undefined') if(window.getComputedStyle)
+                    if(attr==='opacity'){//针对IE进行的处理
+                        val=box.currentStyle['filter'];
+                        reg=/^alpha\(opacity=(\d+(?:\.\d+)?)\)$/i;
+                        val=reg.test(val)?reg.exec(val)[1]/100:1;
+                    }else{
+                        val=box.currentStyle[attr];
+                    }
+                }else{
+                    val=window.getComputedStyle(box,null)[attr];
+                }
+                reg=/^(-?\d+(\.\d+)?)(px|rem|pt|em)?$/i;//对符合规则的值进行去单位,去单位，为了方便计算,有些能去单位，有些不能去单位
+                return reg.test(val)?parseFloat(val):val;
+             }
+          注意：获取到的样式结果，各个浏览器是不同的，具体情况具体分析就好
+               在写样式时，进行的初始化样式，有利于各个浏览器样式的差异也有益于js处理
+               有些复合样式拆分写：margin ->margin-top margin-bottom ...
+               border的没有办法解决
+        3、获取伪类的样式，IE6-8不支持伪类
+           window.getComputedStyle(box,':after')['content']
+    * */
+    var box=document.getElementById('box');
+    console.dir(box);
+    console.log(typeof window.getComputedStyle)
+    console.log(window.getComputedStyle(box)['height'])
+    console.log(window.getComputedStyle(box,':after')['content'])
+</script>
+</body>
+</html>

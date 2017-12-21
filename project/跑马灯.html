@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>跑马灯</title>
+    <style type="text/css">
+        *{
+            margin:0;
+            padding:0;
+            list-style: none;
+        }
+        #box{
+            margin:50px auto;
+            padding: 0 20px;
+            width:1000px;
+            height: 50px;
+            line-height: 50px;
+            border:1px dashed green;
+            font-size:10px;
+        }
+        #box span{
+            color:red;
+            font-weight:bold;
+        }
+        #wrap{
+            height:35px;
+            overflow: hidden;
+            white-space:nowrap;/*文字超出不需要折行*/
+        }
+        #wrap>div{
+            display:inline-block;/*float:left并没有让他成为一行，所以使用inlineblock
+            */
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <div id="wrap">
+        <div id="cBegin">
+            <span>通知:</span>
+            JS语言缺失了一些东西，造成需要自己理解或者再造，一来是增加了学习难度，二来是引起了流派争执。Java是一门简单的语言，因为它所缺失的是Productivity的部分，但作为一门编程语言来说它基础设施还是比较完善
+        </div>
+        <div id="cEnd">
+            <span>通知:</span>
+            JS语言缺失了一些东西，造成需要自己理解或者再造，一来是增加了学习难度，二来是引起了流派争执。Java是一门简单的语言，因为它所缺失的是Productivity的部分，但作为一门编程语言来说它基础设施还是比较完善
+        </div>
+    </div>
+</div>
+<script src="../assets/utils.js"></script>
+<script>
+    ~function(){ //防止全局变量污染
+        var oBox=document.getElementById('box');
+        var cBegin=document.getElementById('cBegin');
+        var oWrap=document.getElementById('wrap');
+        var cBeginWidth=utils.getCssStyle(cBegin,'width');
+        function move(){
+            oWrap.scrollLeft++;
+            if(oWrap.scrollLeft>=cBeginWidth){
+                oWrap.scrollLeft=0;
+            }
+        }
+        var timer=window.setInterval(move,10)
+        oBox.onmouseover=function(){
+            window.clearInterval(timer);
+        }
+        oBox.onmouseout=function(){
+            timer=window.setInterval(move,10)
+//           var timer=window.setInterval(move,10) //这样的写法，会让速度成倍的增加,不断的定义导致不断的叠加速度
+        }
+    }()
+    //    var timer=window.setInterval(function(){
+    //        var curLeft=oWrap.scrollLeft;
+    //        oWrap.scrollLeft=curLeft+1;
+    //        var newLeft=oWrap.scrollLeft;
+    //        if(curLeft===newLeft){//当滚动条滚动完毕后，定时器并没有停止，在累加的前后各获取一次值，看值是否相等，如果相等的话证明滚动条滚到头了；
+    //            oWrap.scrollLeft=0;//滚动条到头后，重新开始，但是会有闪动的情况
+    //        }
+    //    },10)
+</script>
+</body>
+</html>

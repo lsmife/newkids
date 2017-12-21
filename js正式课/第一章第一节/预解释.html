@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>预解释</title>
+</head>
+<body>
+<script>
+//    console.log(num)//undefined，预解释阶段完成申明并赋值undefined
+//    var num=12;
+//    console.log(total)//没有进行预解释直接报错
+//    console.log(num)//预解释完成后，代码由上而下开始执行，赋值为12
+//    var obj={nick:"lsmife",age:23};
+//    fn()//预解释阶段已经完成定义，可以执行
+//    function fn(num1,num2){
+//        var total=num1+num2;
+//        console.log(total)
+//    }
+//    console.log(fn)//把函数体（整体）输出
+//    console.log(fn())//把函数执行返回的结果，输出来（返回值是return的内容，没有为undefined）
+    /* 1、当浏览器加载时，首先提供一个供js代码执行的全局环境（globle/window）;
+     *    window:浏览器对象、JS代码执行全局环境
+     * 2、在当前作用域,JS代码执行之前，浏览器首先会默认的把所有的var的变量进行申明，把所有function申明并进行定义,不受条件等的限制
+     *    申明：提前告诉大家有这个一个东西，赋值为undefined
+     *    定义：变量进行赋值
+     *    变量不重复申明，可以重复赋值，后面的覆盖前面的
+     *    函数亦可以看做一个变量的赋值，赋值的内容是一个栈内存地址，类似于var obj={}
+     * 3、预解释只发生在当前的作用域中
+     *    window作用域-》页面刚加载时会创建该作用域
+     *    函数作用域-》函数执行时才会创建该执行环境
+     * 4、预解释完成后，代码由上至下开始执行
+     * 5、内存分类：
+     *    堆内存：存储引用类型的值、普通对象存储属性名和属性值、函数存储函数体字符串
+     *    栈内存：供JS代码执行环境->作用域（私有作用域、全局作用域）
+     *
+     *    代码执行流程：
+     *    创建全局作用域（global、window）->预解释->代码由上而下执行->函数执行->创建私有作用域->函数形参声明并定义（如果函数执行时未传递参数，默认undefined）->私有作用域预解释->函数体代码自上而下执行
+     * 6、作用域链：在私有作用域中，遇到变量需要判断是否为私有变量，如果不是，需要逐级向上查找，直到全局作用域global和window中都没有那么浏览器会报错
+     *    当前作用域私有变量优先于>上级私有变量优先于>全局变量
+     *    私有变量：形参和var申明的变量
+     *    闭包：函数形参的私有作用域会保护里面的私有变量（var 声明和 形参）不受干扰，也不会改变外部变量的值；
+     *
+     * 7、全局作用域
+     *  加var和不加var的都是window的属性，微微的区别就是 a->window.a 直接设置了一个属性 ; var a->window.a,在window开辟了一个空间
+     *
+     * 8、预解释问题导致的现象
+     * var data;
+     * console.log("data" in window) // -> true
+     * if(!("num" in window)){ //判断提交成立才执行语句，但是预解释，不论成立与否都执行预解释；
+     *    var num =12;
+     * }
+     * console.log(num) // undefined
+     * 常理：！("num" in window)-》true 执行 var num =12;  console.log(num) -》12
+     * 预解释：var num 声明->！("num" in window)-》false  不执行 var num =12;  console.log(num) -》undefined
+     *
+     * fn(); //可以再函数体前面执行，因为预解释已经把声明和定义完成了
+     * function fn(){
+     *     console.log("ok");
+     * }
+     * fn();//这次执行和上次执行都会形成私有作用域，但是2个私有作用域互不相关
+     *
+     * 9、匿名函数之函数表达式：把函数定义的部分当做字符串，赋值给变量；
+     * func() //-> func is not a function
+     * var func=function(){ console.log('ok')} //推荐这种定义函数的方式，对于排查错误有好处
+     * 预解释只对等号左边的进行预解释对右边不进行预解释，因为右边的是值
+     * 10、自执行函数
+     *  在全局作用域中不进行预解释，定义和执行一起完成
+     *  function list(){
+     *     console.log(num)
+     *     //var num;
+     *    (function(){
+     *        var num='ksmife';
+     *        console.log(num);
+     *    })()
+     * }
+     * list()
+     * (function(){console.log('ok')})()
+     * !function(){console.log('ok')}
+     * +function(){console.log('ok')}
+     * -function(){console.log('ok')}
+     * ~function(){console.log('ok')}
+     * 11、函数体中出现return，后面的代码不在执行
+     * function(){
+     *     console.log(num);// ->undefined，预解释在return之前执行
+     *     return function(){console.log('ok')}; //function 不进行预解释
+     *     var num=12;
+     *  }
+     * 11、在JS中如果变量名和函数名重复，也算重复，申明一次，自上而下进行赋值，下面覆盖上面的值
+     * var func=12;
+     * function func(){
+     *      console.log('ok');
+     * }
+     * console.log(func) // -> " function func(){console.log('ok');} "
+     *
+     * window预解释：
+     * 声明+定义 fn=xxxfff111
+     * 声明var fn //上面不需要声明了，跳过
+     * 声明+定义fn=xxxfff222 声明过了，不需要声明，只定义就好
+     * ->fn=xxxfff222
+     *
+     * fn(); //-> 2
+     * function fn(){ console.log(1)};
+     * fn();//-> 2
+     * var fn=12;
+     * fn();//报错：fn is not a function，后面不执行了
+     * function fn(){ console.log(2)};
+     * fn();
+     *
+     */
+
+</script>
+</body>
+</html>
