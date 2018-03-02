@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>call继承</title>
+</head>
+<body>
+<script>
+    //    call继承(只继承私有属性，原型里面的属性不继承)
+    //    子类把父类的私有属性都拿过来
+    function A(){
+        this.x=100;
+        this.getX=function(){}
+    }
+    A.prototype.y=120;
+    function B(){
+        A.call(this)
+    }
+    var f=new B;
+    console.log(f.x,f.getX,f.y)// -> 100 ƒ (){} undefined
+</script>
+</body>
+</html>

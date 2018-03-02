@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>callfangfa</title>
+</head>
+<body>
+<script>
+// Call：在fun函数运行时指定的this值。需要注意的是，指定的this值并不一定是该函数执行时真正的this值，
+// 如果这个函数处于非严格模式下:
+// 1、指定为null和undefined的this值会自动指向全局对象(浏览器中就是window对象)
+// 2、值为原始值(数字，字符串，布尔值)的this会指向该原始值的自动包装对象。
+  var obj={nick:"lsmife"};
+  function func(n1,n2){
+      console.log((n1+n2),this);
+  };
+  func(10,20);//30 Window {postMessage: ƒ, blur: ƒ, focus: ƒ, close: ƒ, frames: Window, …}
+  func.call(10,20);//NaN Number {10}
+  func.call(obj,10,20);//30 {nick: "lsmife"}
+  func.call();//NaN Window {postMessage: ƒ, blur: ƒ, focus: ƒ, close: ƒ, frames: Window, …}
+  func.call(null)//NaN Window {postMessage: ƒ, blur: ƒ, focus: ƒ, close: ƒ, frames: Window, …}
+  func.call(undefined);//NaN Window {postMessage: ƒ, blur: ƒ, focus: ƒ, close: ƒ, frames: Window, …}
+  func.call('')//NaN String {"", length: 0}
+  func.call(124)//NaN Number {124}
+  func.call(true)//NaN Boolean {true}
+
+ // apply和call和bind方法都是更改this指向的
+ // call入参：顺序参数，立即执行
+    fn.call(obj,1,2)
+ // apply入参：数组参数，立即执行
+ // apply和call：对入参为Null，undefined在严格和非严格模式下的表现是一致的
+    fn.apply(obj,[1,2])
+ // bind在IE6-8下面不支持
+ // bind入参：顺序参数，不立即执行,返回一个改变this指向的函数，这个函数可以用变量接收，执行比较灵活
+ // bind的预处理思想：把fn事先改变成我们需要的结果，并把参数处理好，事后需要执行时，执行即可；
+    var temp=fn.bind(obj,1,2)
+    temp()
+ // this最终的5种情况：
+ // 1、自执行函数执行，this用于指向window（严格模式下undefined）；
+ // 2、普通函数执行，函数前面有'.'指向'.'前面的对象，如没有则指向window（严格模式下undefined）
+ // 3、给元素的一个行为事件绑定方法，方法的this指向该元素
+ // 4、构造函数中this，在创建实例时候指向实例本身
+ // 5、call/apply/bind,this指向参数对象（优先级最高，上面4中与第5种同时存在时，以第5个为准）（入参对象是Null、undefined，严格模式下不是window是Null、undefined，参见call方法）；
+
+//    call方法理解
+//    Function.prototype.call=function(){}
+//    call改变this指向
+//    所有函数都是Function的一个实例
+//    fn通过原型查找，找到Function.prototype.call方法
+    var obj={nick:"lsmife"}
+    function fn(){
+        console.log(this.nick)
+    }
+    fn()//this->window
+    fn.call(obj)//fn.call执行，首先改变fn的this->obj,然后fn函数执行
+
+//  模拟call方法
+//  存在问题
+//   Function.prototype.myCall=function myCall(context){
+////        1、改变fn的this指向context的值obj
+////            //myCall执行this指向fn,让fn中的this变为context的值obj
+////              函数没有执行之前是字符串
+////              console.log(this)//->"function fn(){console.log(this.nick)}"
+//            var newFn="("+this.toString().replace('this','context')+")()";
+////            console.dir(newFn)
+////        1、fn方法执行
+//            eval(newFn);
+//    }
+//    fn.myCall(obj)
+
+// 正确理解
+// function mncall(context){
+//        1、this指向context
+//        2、this执行
+// }
+// Function.prototype.call=mncall;
+
+//    实战一
+    function f1(){console.log(1)}
+    function f2(){console.log(2)}
+    f1.call(f2)//->1 f1中的this->f2,f1执行
+    f1.call.call(f2);// f1.call的this变成f2,f.call执行
+    1、f1.call是个函数，它的作用域里面的this指向f2
+    2、f1.call执行 -》作用域里面的this执行
+    // function mncall(context){
+    //        1、this指向f2
+    //        2、this执行==f2执行
+    // }
+    // 第一个并不是f1.call执行，是f1执行
+    f1.call.call.call.call(f2);// f2() ->2
+    Function.prototype.call(f1)//什么都不输出
+    Function.prototype.call.call.call.call.call(f1)//->1  call方法中的this变成f1，call()->f1()
+//    实战二
+    console.log('不严格')
+    console.log(this)
+    "use strict";//接下来的JS代码将按照严格模式进行编写
+    console.log('严格')
+    console.log(this)
+
+
+
+
+</script>
+</body>
+</html>

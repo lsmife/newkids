@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>作用域查找</title>
+</head>
+<body>
+<script>
+    /*
+    * 怎样查找函数的上级作用域
+    * 1、函数定义所在的作用域就是它的上级作用域，与在哪里执行的没有关系
+    * */
+    var num=12;
+    function func(){
+        var num=120;
+        return function(){
+            console.log(num);
+        }
+    }
+    var f=func();
+    f();
+    ~function(){
+        var num=1200;
+       f();
+    }()
+</script>
+</body>
+</html>

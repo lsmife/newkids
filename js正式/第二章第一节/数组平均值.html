@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数组平均值</title>
+</head>
+<body>
+<script>
+//    function avgFn(){
+////        arguments是类数组没有数组的排序方法，因为他的原型链没有Array类的原型，直接指向了Object
+////        1、类数组转为数组一
+////         var ary=[];
+////         for(var i=0;i<arguments.length;i++){
+////             ary[ary.length]=arguments[i];//让数组最后一项等于类数组的当前项
+////         }
+////        2、利用Array.prototype.slice方法克隆数组,原理和上面是一样的，只不过slice的是this,上面的是arguments,所以可以用call来继承
+////        var ary=Array.prototype.slice.call(arguments);
+////        3、根据原型做的2的变体
+//         var ary=[].slice.call(arguments);
+//        //2、排序后去掉最大值和最小值
+//         ary.sort(function(a,b){
+//             return a-b;
+//         });
+//         ary.shift();
+//         ary.pop();
+//        //3、求平均值
+//        //1、
+//         var sum=ary.reduce(function(a,b){
+//            return a+b;
+//         })
+//         return parseInt(sum/ary.length*100)/100;//->9.41 不进行四舍五入保留2位小数
+////       2、
+////       return parseInt(eval(ary.join("+"))/ary.length*100)/100;//->9.41 不进行四舍五入保留2位小数
+////       3、
+////       return (eval(ary.join("+"))/ary.length).toFixed(2);//->9.42 四舍五入保留2位小数
+//    }
+//    var avg=avgFn(9,8,9.3,9.8,9.9,9.5,9.7,9.2)
+//    console.log(avg)
+
+
+    //纯原型的方式做
+    function avgFn(){
+        Array.prototype.sort.call(arguments,function(a,b){return a-b});
+        [].shift.call(arguments);
+        [].pop.call(arguments);
+        return (eval([].join.call(arguments,"+"))/arguments.length).toFixed(2);
+    }
+    var avg=avgFn(9,8,9.3,9.8,9.9,9.5,9.7,9.2)
+    console.log(avg)
+</script>
+</body>
+</html>

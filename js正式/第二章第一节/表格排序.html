@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表格排序</title>
+</head>
+<body>
+<ul id="table">
+    <li>23</li>
+    <li>12</li>
+    <li>45</li>
+    <li>21</li>
+    <li>14</li>
+    <li>20</li>
+    <li>90</li>
+    <li>80</li>
+</ul>
+<script>
+    var oUl=document.getElementById('table');
+    var oLi=oUl.getElementsByTagName('li');
+    function listToArray(obj){
+        var ary=[];
+        try{
+            ary=Array.prototype.slice.call(obj);
+        }catch(e){
+            for(var i=0;i>obj.length;i++){
+                ary[ary.length]=obj[i];
+            }
+        }
+        return ary;
+    }
+    function sortTable(arr){
+        arr.sort(function(a,b){
+            return parseFloat(a.innerHTML)-parseFloat(b.innerHTML);
+        })
+    }
+    oUl.onclick=function(){
+        var oLiArr=listToArray(oLi);
+        sortTable(oLiArr);
+        var frg=document.createDocumentFragment();
+        for(var i=0;i<oLiArr.length;i++){
+            frg.appendChild(oLiArr[i]);
+        }
+        oUl.appendChild(frg);//DOM映射机制
+        frg=null;
+        //下面的方式第二次点击报错 猜测：通过字符串拼接的方式，不在遵循DOM映射的规则
+//        var str="";
+//        for(var i=0;i<oLiArr.length;i++){
+//            str+=oLiArr[i].outerHTML;
+//        }
+//        oUl.innerHTML=str;
+    }
+
+</script>
+</body>
+</html>

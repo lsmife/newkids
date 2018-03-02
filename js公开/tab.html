@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>tab选项卡实例</title>
+    <style type="text/css">
+        *{padding:0;margin:0}#tab{margin:30px auto;width:242px;height:auto;overflow:hidden}ul{height:40px;width:auto;overflow:auto;list-style:none}li{width:50px;height:40px;line-height:40px;float:left;margin:0 5px;list-style:none;text-align:center;cursor:pointer}li.active{background:dodgerblue;color:#fff}#tab div{display:none;width:240px;text-align:center;line-height:240px;border:1px solid dodgerblue;border-top:0}#tab div.active{display:block}
+    </style>
+</head>
+
+<body>
+    <div id="tab">
+        <ul>
+            <li class="active">文字</li>
+            <li>音频</li>
+            <li>视频</li>
+            <li>图片</li>
+        </ul>
+        <div class="active">文字</div>
+        <div>音频</div>
+        <div>视频</div>
+        <div>图片</div>
+    </div>
+
+    <script>
+        var tab='tab'
+        var $tab=document.getElementById(tab);
+        var oDiv=$tab.getElementsByTagName('div');
+        var oLi=$tab.getElementsByTagName('li');
+
+        function changeTab(indexs){
+            for(var i=0;i<oDiv.length;i++){
+                oDiv[i].className="";
+                oLi[i].className="";
+            }
+            oDiv[indexs].className='active';
+            oLi[indexs].className='active';
+
+        }
+//方法一：
+//        for(var i=0;i<oLi.length;i++){
+//            oLi[i].flag=i;
+//            oLi[i].onclick=function(){
+//                changeTab(this.flag)
+//            }
+//        }
+//方法二：
+        for(var i=0;i<oLi.length;i++){
+            oLi[i].onclick=(function(i){
+                return function(){
+                    changeTab(i)
+                }
+            })(i)
+        }
+        //为什么不直接return changeTab();
+        //这句话的面意思是，先执行，然后将执行结果返回给变量，重点是已经执行了，
+        //所以必须使用匿名函数包一下，属性里面是可以写函数名称的，但是其实也是被引号阔起来的
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+Object.seal
+configurable设置为false
+不改变writable

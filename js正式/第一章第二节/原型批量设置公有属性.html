@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>批量设置公有属性</title>
+</head>
+<body>
+<script>
+//    批量设置函数公有属性
+//    1、设置别名（JQ的方式）
+    function Fn(){
+      this.x=100
+    }
+    var fn=Fn.prototype;
+    fn.getX=function(){console.log(this.x)};
+    fn.getY=function(){console.log(this.y)};
+//    2、重构原型对象
+    Fn.prototype={
+        constructor:Fn,//如果不进行设置，会通过__proto_属性找到Object中的constructor
+        getX:function(){console.log(this.x)},
+        getY:function(){console.log(this.y)}
+    }
+//    3、内置类原型方法修改，浏览器不支持重构的方式，支持逐个进行修改，建议命名时需要不用原来的方法冲突，否则会被覆盖
+    Array.prototype.sort=function(){
+        console.log('ok')
+    }//覆盖原sort
+    Array.prototype.sort_ls=function(){
+        console.log('ok')
+    }//推荐
+
+</script>
+</body>
+</html>

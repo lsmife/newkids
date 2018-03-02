@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Math数学方法</title>
+</head>
+<body>
+<script>
+//    [0-1)之间的随机数
+//    [n-m]之间的随机数
+//      Math.round(Math.random()*(m-n)+n);
+//    console.log(Math.random());
+//    [1-10] [14,58]之间的随机整数
+//    for(var i=0;i<50;i++){
+//      var num=Math.round(Math.random()*9+1);
+//      console.log(num)
+//    }
+//    for(var i=0;i<50;i++){
+//        var num=Math.round(Math.random()*44+14);
+//        console.log(num)
+//一、获取闭区间内的随机正整数，不用考虑m,n的顺序
+//function getRandom(m,n){
+//    //优化：不管传递的是什么，强制转换一下，缩小了范围
+//    var n=Number(n);
+//    var m=Number(m);
+//    if(isNaN(n) || isNaN(m)){ //优化：进行合理判断，减少不必要的代码执行损耗资源
+//        return Math.random();
+//    }
+//    return Math.round(Math.random()*Math.abs(m-n)+Math.min(m,n))
+//}
+
+//var n=-1;
+//while(n!==0){
+//    n=getRandom(0,61)
+//    console.log(n);
+//}
+
+//二、判断边界值是否出现了,并输出边界值
+//function judgeBoundary(m,n){
+//    var obj={};
+//    obj[m]=obj[n]=0;
+//    while(obj[m]<=0 || obj[n]<=0){
+//        var rn=getRandom(m,n);
+//        switch(rn){
+//            case n:
+//                obj[n]++;
+//                console.log(rn)
+//                break;
+//            case m:
+//                obj[m]++;
+//                console.log(rn)
+//                break;
+//        }
+//        //顺便判断是否有超出限制的随机数
+//        if(Math.min(m,n)>rn||Math.max(m,n)<rn){
+//            console.log(false);
+//        }
+//    }
+//
+//    return true;
+//}
+//judgeBoundary(0,61);
+
+//思考题
+// [-10,10] [-10,0]之间的随机数
+//获取0-61之间不重复的4位随机数注意兼容问题,数组的indexOf属性ie6-8不支持
+
+
+//    //绝对值
+//    console.log(Math.abs(-12))
+//    Math.abs(12)
+//    //向下取整数
+//    console.log(Math.floor(12.8));
+//    //向上取整
+//    console.log(Math.ceil(12.8));//13
+//    console.log(Math.ceil(-12.8));//-12
+    //四舍五入
+//    console.log(Math.round(12.5)); //13
+//    console.log(Math.round(-12.5)); //-12
+//    console.log(Math.round(12.4));//12
+//    console.log(Math.round(-12.4));//-12
+    //平方数
+//    console.log(Math.sqrt(2));
+    //最大值
+//    console.log(Math.max(12,34,5,67,34,99)) //99
+//    console.log(Math.min(12,34,5,67,34,99))//5
+
+
+</script>
+</body>
+</html>

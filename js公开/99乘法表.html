@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>99乘法表</title>
+    <style type="text/css">
+        span{display: inline-block;width:100px;height:30px;line-height:30px;text-align: left;  }  span.c1{background:palevioletred;}  span.c2{background:greenyellow;}  span.c3{background:deepskyblue;}
+    </style>
+</head>
+<body>
+<ul id="tab"></ul>
+<script type="text/javascript">
+    var $tab=document.getElementById('tab');
+    var $html='';
+    for(var i =1;i<=9;i++){
+        $html+='<li>';
+        for(var j=1;j<=i;j++){
+            $html+='<span class="c'+(j%3+1)+'">'+j+'*'+i+'='+j*i+'</span>'
+        }
+        $html+='</li>';
+    }
+    $tab.innerHTML=$html;
+
+    var obj=[
+        {
+            "name":"lsmife",
+            "age":"21",
+            "height":"168",
+            "hobby":["football","basketball","swimming"],
+            "list":"miss"
+        },
+        {
+            "list":"miss",
+            "cans":["book","computer","swimming"]
+        }
+    ]
+    console.table(obj);
+</script>
+</body>
+</html>

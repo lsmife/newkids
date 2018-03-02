@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>正则实战</title>
+</head>
+<body>
+<script type="text/javascript">
+    /*
+    //实战一、小写数字替换成大写数字
+    var str="20170721";
+    var ary=["零","壹","贰","叁","肆","伍","陆","柒","捌","玖","拾"];
+    var newStr=str.replace(/\d/g,function(){
+        var num=arguments[0];
+        var str=ary[num];
+        return str;
+    })
+    console.log(newStr);
+
+    //实战二、字符串中出现最多的字符
+    var str="lsmifelshislsososmillistllslsl";
+    getMaxLetter(str);
+    function getMaxLetter(str){
+        var reg=/[a-z]/gi;
+        //构建去重对象
+        var obj={};
+        str.replace(reg,function(){
+            var val=arguments[0];
+            obj[val]>=1?obj[val]+=1:obj[val]=1;
+        });
+        //获取最大次数
+        var maxMum=0;
+        for(var key in obj){
+            obj[key]>maxMum?maxMum=obj[key]:null;
+        }
+        //通过最大次数，得到符合最大次数的字符集合
+        var ary=[];
+        for(var key in obj){
+            obj[key]===maxMum?ary.push(key):null;
+        }
+        var resultStr="出现次数最多的是："+ary.join('和')+"，次数是"+maxMum+"。"
+        console.log(resultStr);
+    }
+    function getMaxLetterAry(str){
+
+    }
+
+    //实战三、模板引擎
+    var str="my name is {0}, my school is {1}, i am {2} years old, i come from {3}"
+    var ary=['lsmife','beijngUniversty',20,'china'];
+    var newStr=str.replace(/{(\d+)}/g,function(){
+        return ary[arguments[1]];
+//        return ary[RegExp.$1];//IE下不兼容
+    })
+    console.log(newStr)
+
+    //实战四、时间格式转化
+    var str="2017-07-21 12:20:00"
+    var reg=/(\d{4})-(\d{2})-(\d{2})\s(\d{2}):(\d{2}):(\d{2})/
+    var newStr=str.replace(reg,"$1年$2月$3日 $4时$5分$6秒");
+    console.log(newStr);
+
+    //实战五、把单次首字母大写
+    var str="lsmife is a boy!";
+    var reg=/\b(\w)/g;
+    var newStr=str.replace(reg,function(){
+        var val=arguments[0];
+        return val.toUpperCase();
+    })
+    console.log(newStr)
+     //实战六、获取URL地址栏
+        var str="http://www.baidu.com/list?name=ls&age=12&gender=男&height=123cm";//obj={name:'ls',age:12,gender:'男'}
+        var reg=/(\?|&)(\w+)=(\w+)/g;
+        var obj={};
+        str.replace(reg,function(){
+            obj[arguments[2]]=arguments[3];
+        });
+        console.log(obj)
+
+        var str="http://www.baidu.com/list?name=ls&age=12&gender=男&height=123cm";//obj={name:'ls',age:12,gender:'男'}
+        var reg=/([^?=&]+)=([^?=&]+)/g;
+        var obj={};
+        var res=reg.exec(str);
+        while(res!==null){
+            obj[res[1]]=res[2];
+            res=reg.exec(str);
+        }
+        console.log(obj);
+     //实战八、千分符
+     var reg=/\d(?!$)/g //断言
+     var str="1237862989762";
+     var newStr=str.replace(reg,function(r,i){
+         if((str.length-i-1)%3===0){
+            return r+',';
+         }else{
+            return r;
+         }
+     });
+     console.log(newStr);
+     */
+    //实战七、时间格式字符串
+
+
+
+</script>
+</body>
+</html>

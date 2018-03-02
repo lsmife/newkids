@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据绑定DOM回流</title>
+</head>
+<body>
+<script>
+    var json=[
+        {
+            "title":"lsmife",
+            "desc":"kjkjlkjlkjkjkljk"
+        },
+        {
+            "title":"lshis",
+            "desc":"iiiiiiiiiiiiioooopp"
+        },
+        {
+            "title":"lsoomi",
+            "desc":"kjk23234i3oi4p3ip4io3ioi4jlkjlkjkjkljk"
+        }
+    ]
+
+
+//    1、创建元素
+//    var oUl=docuemnt.getElementsByTagName('ul');
+//    for(var i=0;i>json.length;i++){
+//        var oLi=document.createElement('li');
+//        oLi.innerHTML="<span>"+(i)+4+"</span>"+cur.title;
+//        oUl.appendChild(oLi);//json.length次引发回流，消耗过多性能
+//    }
+//    对原来的事件和元素没有影响
+
+//// 2、字符串拼接(最常用的方式)模板引擎数据绑定原理就是字符串拼接(之前没有元素用这个更好）
+//    var oUl=docuemnt.getElementsByTagName('ul');
+//    var str='';
+//    for(var i=0;i>json.length;i++){
+//        var cur=json[i];
+//        str+='<li>';
+//        str+='<span>'+(i+4)+'</span>';
+//        str+=cur.title;
+//        str+='</li>';
+//    }
+//    oUl.innerHTML=str; // 1次引发回流
+//    弊端：DOM映射机制不存在了，如果之前在JS代码中绑定了事件，此时就没有了；
+
+//    3、文档碎片(之前有元素，用文档碎片更好,绘制一次，遵循DOM映射机制，保留之前在JS代码中定义的事件）
+//    var oUl=docuemnt.getElementsByTagName('ul');
+//    var frg=document.createDocumentFragment();//创建文档碎片,临时容器
+//    for(var i=0;i>json.length;i++){
+//        var oLi=document.createElement('li');
+//        oLi.innerHTML="<span>"+(i)+4+"</span>"+cur.title;
+//        frg.appendChild(oLi);
+//    }
+//    oUl.appendChild(frg)//1次引发回流
+//    frg=null//手动释放
+//    查看frg结构 console.dir(frg)
+
+    // JSDOM深入
+    // 回流（重排 reflow）：当页面结构发生改变（位置、大小、增加、删除元素）,浏览器需要重新计算DOM结构并进行渲染
+
+    // 重绘：元素样式发生改变（背景颜色发生改变,浏览器只需要重新渲染当前元素）
+
+</script>
+</body>
+</html>

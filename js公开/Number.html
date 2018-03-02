@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Number数据类型</title>
+</head>
+<body>
+    <script >
+        /*
+            页面自上而下加载
+            为了避免出现闪屏的现象，把样式放到head，这样在再渲染dom的时候样式已经是有了
+            js放到最底下，因为js是需要dom完全加载后才能获取到DOM节点，从而进行操作
+        */
+        /*
+            数据类型：基础数据类型、引用数据类型
+            基础数据类型(原始数据类型)：Number、String、Boolean、Null、Undefined
+            引用数据类型：Object、function
+            Object：Array、Date、{}、RegExp
+        */
+        //Number数据类型
+        //Number:正数、负数、小数、0、NaN
+        /*
+            NaN
+
+            NaN == NaN //false,NaN不等于任何数，包括自身，因为出现NaN的原因有多种: 0/0 或 12/0*0 或 Number('非数字字符')
+            isNaN() 检测是否为有效数字；
+            原理：如果不是Number类型，浏览器会采用强制类型转换Number('内容');
+                转换规则同Number()强制类型转换相同
+                1、纯数字字符串可以被转换相应数字，否则为NaN
+                2、可以正常转换小数字符串 '12.1'->12.1
+                2、null -> 0
+                3、undefined -> NaN
+                4、{} -> NaN
+                5、{
+                    toString：function(){
+                        return '123'
+                    }
+                }   ->  123
+                6、{
+                    valueOf：function(){
+                        return '123'
+                    }
+                }   ->  123
+        */
+        /*
+            Number()：强制类型转换(进行toString和valueOf)
+            规则：
+                1、纯数字字符串可以被转换相应数字，否则为NaN
+                2、可以正常转换小数字符串 '12.1'->12.1
+                2、null -> 0
+                3、undefined -> NaN
+                4、true -> 1  false -> 0
+                5、'' -> NaN
+                6、{} -> NaN
+                7、{
+                    toString:function(){
+                        return '123'
+                    }
+                }   ->  123
+                8、{
+                    valueOf:function(){
+                        return '123'
+                    }
+                }   ->  123
+                9、二、十六、八进制数字转为十进制数字
+                10、十六进制字符按照规则转为十进制数字
+                11、二、八进制字符不按照规则转为十进制（原因：将字符二、八进制字符当做了十进制字符）
+            
+        */
+        /*
+            parseInt()：非强制类型转换(进行toString，不进行valueOf)
+            规则：
+                1、二、十六、八进制数字转为十进制数字
+                2、十六进制字符按照规则转为十进制数字
+                3、二、八进制字符不按照规则转为十进制（原因：将字符二、八进制字符当做了十进制字符）
+                   解决办法：
+                        parseInt('070',8) -> 56       parseInt('070',10) -> 70
+                        parseInt('0100',2) -> 4       parseInt('0100',10) -> 100
+                        parseInt('0xff',16) -> 255    parseInt('0xff',10) -> 0
+                4、以数字开头的字符串可以被转换为开头的数字 [与Number的区别]
+                5、其他数据类型都为NaN [与Number的区别]
+                    null ->  NaN
+                    undefined -> NaN
+                    true -> NaN  false -> NaN
+                    '' -> NaN
+                    {} -> NaN
+                    {
+                        toString:function(){
+                            return '123'
+                        }
+                    }   ->   123
+                    {
+                        valueOf:function(){
+                            return '123'
+                        }
+                    }   ->  NaN
+
+                5、不识别小数点  '12.3' -> 12 [与parseFloat和Number区别]
+
+        */
+        /*
+            parseFloat()：非强制类型转换
+            规则：
+                1、二、十六、八进制数字转为十进制数字
+                2、不识别十六进制字符(原因：按照普通数字字符处理了，结果总是0)
+                3、二、八进制字符不按照规则转为十进制（原因：将字符二、八进制字符当做了十进制字符）
+                   解决办法：无
+                4、以数字开头的字符串可以被转换为开头的数字 [与Number的区别]
+                5、其他数据类型都为NaN [与Number的区别]
+                    null ->  NaN
+                    undefined -> NaN
+                    true -> NaN  false -> NaN
+                    '' -> NaN
+                    {} -> NaN
+                    {
+                        toString:function(){
+                            return '123'
+                        }
+                    }   ->   123
+                    {
+                        valueOf:function(){
+                            return '123'
+                        }
+                    }   ->  NaN
+
+                5、识别小数点  '12.3' -> 12.3 [与parseInt区别]
+
+        */
+
+        /*
+            isFinite()  判断是否为无穷大                             
+        */
+        var val=Number('123lsmi');
+        if(val==123){
+            console.log(123);
+        }else if(val==NaN){
+            console.log(NaN);
+        }else{
+            console.log('以上都不是')
+        }
+        // 以上都不是
+    </script>
+</body>
+</html>

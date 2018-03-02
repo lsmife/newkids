@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>类型检测及类型区别</title>
+</head>
+<body>
+    <script>
+        /*
+            参考地址：http://www.cnblogs.com/CandyManPing/p/5386767.html
+            基础数据类型：按值操作
+            引用数据类型：按址操作
+            类型检测：typeof instanceof constructor Object.prototype.toString.call()
+            1、typeof 返回字符串,包含数据类型字符
+            返回值："number" "string" "boolean" "undefined" "object" "function"
+            缺点：不能检测object的细分类
+            console.log(typeof '珠峰') -> "string"
+            console.log(typeof null,typeof {},typeof [],typeof /^$/) -> "object object object object"
+            console.log(typeof function(){})
+
+            var num2=12
+            console.log(typeof num2) ->"number" //检测变量代表的或者存储的值的类型
+            console.log(typeof 12) ->"number"
+
+            补充检测原理：
+            typeOf:通过对象在底层的二进制来判断
+            原理是这样的， 不同的对象在底层都表示为二进制， 在 JavaScript 中二进制前三位都为 0 的话会被判断为 object 类型，
+            null 的二进制表示是全 0， 自然前三位也是 0， 所以执行 typeof 时会返回“object”。
+            000：对象
+            1：整数
+            010：浮点数
+            100：字符串
+            110：布尔
+            undefined：用 - （−2^30）表示。
+            null：对应机器码的 NULL 指针，一般是全零。
+            instanceOf：使用__proto__一路向上查找
+        */
+        console.log(typeof(typeof(typeof(typeof([])))))
+        //"string" 2个以上的都是返回"string" ,因为typeof的返回值是字符串
+    </script>
+</body>
+</html>

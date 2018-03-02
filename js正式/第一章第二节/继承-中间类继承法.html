@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>中间类继承法</title>
+</head>
+<body>
+<script>
+//    中间类继承法 -移动端
+    function avgFn(){
+        console.dir(arguments)//类数组__proto__直接指向Object，不能使用数组内置的方法
+        Array.prototype.sort.call(arguments,function(a,b){return a-b;})
+        Array.prototype.pop.call(arguments)
+        Array.prototype.shift.call(arguments)
+        console.log((eval(Array.prototype.join.call(arguments,'+'))/arguments.length).toFixed(2));
+    }
+    function avgFnNew(){
+        arguments.__proto__=Array.prototype;
+        arguments.sort(function(a,b){return a-b;})
+        arguments.pop()
+        arguments.shift()
+        console.log((eval(arguments.join('+'))/arguments.length).toFixed(2));
+    }
+    avgFn(12,23,34,45,56)
+    avgFnNew(12,23,34,45,56)
+</script>
+</body>
+</html>

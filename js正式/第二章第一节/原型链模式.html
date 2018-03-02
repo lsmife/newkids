@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>原型链模式</title>
+</head>
+<body>
+<script>
+    /*
+     1、每个函数都有一个prototype属性（对象类型）
+     2、prototype属性上面浏览器默认添加constructor属性默认值是当前类
+     3、每个引用类型都有一个属性__proto__ ，属性值是当前对象（实例）所属类的原型(prototype)
+        引用类型：函数、普通对象、实例、prototype
+     4、所有的对象类型都是Object类的一个实例，某构造函数的prototype（用X代替）是Object的实例，X的__proto__指向Object的prototype
+        Object是所有类型的基类，所以他的prototype的__proto__是null
+     5、浏览器的name属性(chrome)：
+        window.name:""
+        function的name是函数名
+     6、obj instanceof Object
+        原理: obj.__proto__.__proto__.....==Object.prototype
+             通过__proto__建立起联系，实例和原型对象都具有__proto__属性
+             实现：child.prototype==new Parent
+                  让子类的原型等于父类的实例
+        function Person(){
+            this.nick="lsmife";
+            this.age=18;
+        }
+        function Police(){
+            this.duty="police";
+        }
+        Police.prototype=new Person;
+        var p1=new Police;
+        console.log(p1.__proto__===Police.prototype);
+        console.log(p1.__proto__.__proto__===Person.prototype);
+        console.log(p1.__proto__.__proto__.__proto__===Object.prototype);
+
+      7、属性查找:实例.属性名(由私有到公有，顺序是不可逆的)
+        第一步、先找实例的私有属性，如果存在则获取该属性对应的值，如果不存在则进行第二步
+               注：如果私有和公有都有，那么只找私有的，不找公有的
+        第二步、通过实例的__proto__属性找到所属类的prototype对象，并查找该属性，如果没有则进行第三步
+        第三步、通过prototype的__proto__属性找到所属类的prototype对象并查找该属性，
+             如果没有则反复进行第三步直到找到Object类的prototype为null结束，并返回undefined
+
+        注： 1、所有Fn.prototype在没有进行重新赋值的情况下，Fn.prototype.__proto__===Object.prototype
+            2、所有的Fn.__proto__===Function.prototype Function.prototype===Object.prototype（Function也是类也属于上一条）
+
+       8、IE中原型链模式是同样的道理，但是禁用了__proto__属性（防止你修改内置类的方法）
+
+       9、原型补充
+            function Fn(){
+                this.x=100;
+                this.getX=function(){
+                    console.log(this.x);
+                }
+            }
+            Fn.prototype.getX=function(n){
+                console.log("这是原型："+this.x+n);
+            }
+            Fn.prototype.sum=function(n){
+                console.log(this.x+n);
+            }
+            f1=new Fn;
+            f2=new Fn;
+            console.log(f1.sum===f2.sum);//->true 每个实例的公有属性都是同一个属性，所以相等
+            console.log(f1.getX===f2.getX);//->false 每个实例的私有属性都不相等
+            console.log(f1.getX)// -> function(){console.log(this.x);} 优先查找私有属性，找到后就不再查找，否则需要向上级prototype查找，找到后就不在查找，直到Object.prototype为null，返回undefined
+        10、修改私有属性：
+            f1.getX=function(){console.log("修改了")};
+            修改共有属性：
+            f1.__proto__.sum=function(){console.log("修改了")};
+            Fn.prototype.sum=function(){console.log("修改了")};
+        11、obj.hasOwnProperty('attr')： 查看实例是否具有某个私有属性
+            console.log(f1.hasOwnProperty('x')) //->true
+            console.log(f1.hasOwnProperty('getX')) //->true
+            console.log(f1.hasOwnProperty('sum')) //->false
+     */
+</script>
+</body>
+</html>

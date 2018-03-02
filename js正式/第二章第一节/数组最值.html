@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数组最值</title>
+</head>
+<body>
+<script>
+    /*
+    * */
+    var ary=[1,2,3,56,7,8,9,0,22,900];
+    var max,min;
+
+//    max=ary.sort(function(a,b){return a-b}).pop(); //数组从小到大排序
+//    min=ary.sort(function(a,b){return a-b}).shift();
+//    console.log(max,min)
+
+//    max=eval("Math.max("+ary.toString()+")")
+//    min=eval("Math.min("+ary.toString()+")")
+//    console.log(max,min)
+//
+//    max=Math.max.apply(null,ary)
+//    min=Math.min.apply(null,ary)
+//    console.log(max,min)
+
+//    ary.forEach(function(v){ //兼容:IE6-8不兼容
+//        max=max===undefined?v:max; //注意0也是FALSE，三元表达式返回值必须有变量接受,undefined!=='undefined'
+//        min=min===undefined?v:min;
+////        console.log(min=='undefined')//false
+//        if(v>max){
+//            max=v;
+//        }
+//        if(v<min){
+//            min=v;
+//        }
+//    });
+//    console.log(max,min)
+
+//    max=ary[0];
+//    min=ary[0];
+//    for(var i=1;i<ary.length;i++){
+//        var cur=ary[i];
+//        if(max<cur){
+//            max=cur;
+//        }
+//        if(min>cur){
+//            min=cur;
+//            console.log(cur)
+//        }
+//    }
+//
+//    console.log(max,min)
+
+//    括号表达式(fn1,fn2)(),只执行最后一个
+//    原理:执行最后一项的值
+    function fn1(){console.log(1)}
+    function fn2(){console.log(this)}
+    var obj={nick:'lsmife',fn:fn2}
+    //下面三个内容在控制台里面执行没有问题，这里直接执行报错
+//    (fn1,fn2)()
+//    (fn1,obj.fn)();//->window  this->window
+//    (obj.fn)()//this->obj特殊情况，只有一项的时候this指向正常
+    var tmp=eval("1,2,3,56,7,8,9,0,22,900")
+    console.log(tmp)//temp->900最后一项
+</script>
+</body>
+</html>

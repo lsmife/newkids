@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSON数据格式</title>
+</head>
+<body>
+<script>
+    var obj={name:"lsmife",age:12}
+    var json={
+        "name":"lsmife",
+        "age":12,
+        "isBoy":true,
+        "favor":["football",12],
+        "attr":{
+            "nick":"ls",
+            "age":12
+        }
+    }
+//    属性名称，需要用双引号包起来，单引号都不行，不允许出现undefined
+
+//    JSON对象方法:window浏览器对象提供了2个JSON对象方法
+    // 兼容：(IE6-7)下没有JSON对象
+//    window.JSON.parse()==JSON.parse() //JSON格式的字符串转换为JSON格式的对象
+//    window.JSON.stringify()==JSON.stringify()//JSON格式的对象转换为JSON格式的字符串
+    var jsonStr=JSON.stringify(json);
+//    兼容：后期做
+    console.log(typeof jsonStr);
+
+    var jsonObj=JSON.parse(jsonStr);
+    eval("("+jsonStr+")")//兼容IE6-7
+
+
+    //JSON兼容IE6-7的代码
+    if (!window.JSON) {
+        window.JSON = {
+            parse: function(jsonStr) {
+                return eval('(' + jsonStr + ')');
+            },
+            stringify: function(jsonObj) {
+                var result = '',
+                    curVal;
+                if (jsonObj === null) {
+                    return String(jsonObj);
+                }
+                switch (typeof jsonObj) {
+                    case 'number':
+                    case 'boolean':
+                        return String(jsonObj);
+                    case 'string':
+                        return '"' + jsonObj + '"';
+                    case 'undefined':
+                    case 'function':
+                        return undefined;
+                }
+
+                switch (Object.prototype.toString.call(jsonObj)) {
+                    case '[object Array]':
+                        result += '[';
+                        for (var i = 0, len = jsonObj.length; i < len; i++) {
+                            curVal = JSON.stringify(jsonObj[i]);
+                            result += (curVal === undefined ? null : curVal) + ",";
+                        }
+                        if (result !== '[') {
+                            result = result.slice(0, -1);
+                        }
+                        result += ']';
+                        return result;
+                    case '[object Date]':
+                        return '"' + (jsonObj.toJSON ? jsonObj.toJSON() : jsonObj.toString()) + '"';
+                    case '[object RegExp]':
+                        return "{}";
+                    case '[object Object]':
+                        result += '{';
+                        for (i in jsonObj) {
+                            if (jsonObj.hasOwnProperty(i)) {
+                                curVal = JSON.stringify(jsonObj[i]);
+                                if (curVal !== undefined) {
+                                    result += '"' + i + '":' +curVal + ',';
+                                }
+                            }
+                        }
+                        if (result !== '{') {
+                            result = result.slice(0, -1);
+                        }
+                        result += '}';
+                        return result;
+
+                    case '[object String]':
+                        return '"' + jsonObj.toString() + '"';
+                    case '[object Number]':
+                    case '[object Boolean]':
+                        return jsonObj.toString();
+                }
+            }
+        };
+    }
+</script>
+</body>
+</html>

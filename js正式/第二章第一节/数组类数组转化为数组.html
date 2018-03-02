@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>类数组转化为数组</title>
+</head>
+<ul>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+<body>
+<script>
+//    类数组：DOM集合(HTMLCollection,NodeList)、arguments
+//    兼容:在IE6-8下，类数组(HTMLCollection,NodeList)借用数组的方法报错，而arguments不报错
+        var oLi=document.getElementsByTagName('li');
+//    标准（不兼容IE6-8）
+        var ary=Array.prototype.slice.call(oLi);
+//    非标准
+        var ary=[]
+        for(var i=0;i<oLi.length;i++){
+            ary[ary.length]=oLi[i];
+        }
+
+ //   浏览器异常捕获
+    try{}catch(e){}
+    定义：捕获浏览器异常，记录异常信息，继续执行后续操作
+    用途：1、处理兼容的问题，不兼容检测到错误，执行兼容的方法
+    try{}catch(e){}收集错误日志
+
+    try{
+        var ary=Array.prototype.slice.call(oLi);//不兼容，报错
+
+    }catch(e){//形参必须要有
+        var ary=[]                              //兼容
+        for(var i=0;i<oLi.length;i++){
+            ary[ary.length]=oLi[i];
+        }
+        console.log(e.message)//收集错误日志
+    }
+
+ //异常捕获完整形式：try{}catch(e){}finally{}
+  finally{}不常用
+    try{
+        //JScode
+        console.log(sum)
+        console.log('ok')
+
+    }catch(e){
+        //报错时执行的JsCode
+        //收集报错信息e.message
+    }finally{
+        //不管try是否报错都会执行，一般不用
+        console.log('finally')
+    }
+
+//    特例：捕获浏览器异常，记录异常信息，抛出错误信息，后续代码不再执行
+    try{
+        //jscode
+        console.log(sum)
+    }catch(e){
+        //e.message
+        //手动抛出错误,控制台查看，错误信息常用的几个如下
+        throw new Error("自定义信息：当前网络异常，稍后再试！")
+        throw new ReferenceError("自定义信息：引用错误！")
+        throw new RangeError("自定义信息：范围错误！")
+        throw new TypeError("自定义信息：类型错误！")
+    }
+    console.log('ok')
+
+//类数组转化为数组的函数
+    function listToArray(likeAry){
+        var ary=[];
+        try{
+            ary=Array.prototype.slice.call(likeAry);
+        }catch(e){
+            for(var i=0;i<likeAry.length;i++){
+                ary[ary.length]=likeAry[i];
+            }
+        }
+        return ary;
+    }
+    console.log(oLi);
+    console.log(listToArray(oLi));
+</script>
+</body>
+</html>

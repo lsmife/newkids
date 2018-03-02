@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM节点应用</title>
+</head>
+<body>
+<script>
+    /*
+    增 创建节点元素：document.createElement('元素标签名称');
+    增 容器内部末尾添加元素：Ele.parentNode.appendChild(Ele); // Ele元素对象的简称
+    删 容器内部删除某元素：targetEle.parentNode.removeChild(targetEle);//只有父级元素可以删除子节点
+    改 替换元素: targetEle.parentNode.replaceChild(newELe,target)// 将target替换为newEle
+    增 容器内部某元素前面添加元素：targetEle.parentNode.insertBefore(newEle,targetEle);//targetEle 目标元素对象
+    增 克隆元素：targetEle.cloneNode(true)//有true的情况是将内容一并克隆
+     * */
+    var oDiv=document.createElement('div');
+    oDiv.style.width="200px";
+    oDiv.style.height="100px";
+    oDiv.style.border="2px solid red";
+    var oPgreen=document.createElement('p');
+    oPgreen.style.width="200px";
+    oPgreen.style.height="100px";
+    oPgreen.style.border="2px solid green";
+    var dd=document.createElement('p');
+    dd.style.width="200px";
+    dd.style.height="100px";
+    dd.style.border="2px solid blue";
+    document.body.appendChild(oDiv);
+    document.body.appendChild(oPgreen);
+    oDiv.parentNode.insertBefore(oPgreen,oDiv); //向oDiv的父级元素插入元素oP，并且插入到oDiv前面
+    oPgreen.parentNode.replaceChild(dd,oPgreen);
+    /*
+    * 自定义属性
+    * 设置：targetEle.setAttribute('属性名','属性值');
+    * 获取：targetEle.getAttribute('属性名'）;
+    * 删除：targetEle.removeAttribute('属性名'）;
+    * 兼容：在ie6-8下不能修改class属性如：
+    * targetEle.setAttribute('class','aaa');//不起作用
+    * 解决：targetEle.className='aaa'
+    * */
+    var pTag=document.createElement('p');
+    document.body.appendChild(pTag);
+    //向对象添加自定义属性，只是再内存空间中添加了属性，并没有反映到Html上面
+    pTag.test='内存测试属性';
+    pTag["test"]='内存测试属性';
+    console.log(pTag.test);
+    console.log(pTag["test"]);
+    delete pTag.test;
+    console.log("test:"+pTag["test"]); // -> test:undefined
+    //向DOM对象添加自定义属性，可以反映到Html上面
+    pTag.setAttribute('test','测试属性');
+    console.log(pTag.getAttribute('test'));
+    pTag.removeAttribute('test');
+    console.log('pTag:'+pTag.getAttribute('test')); // -> pTag:null
+
+</script>
+</body>
+</html>

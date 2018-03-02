@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Boolean</title>
+</head>
+<body>
+    <script type='text/javascript'>
+        /*
+            Boolean:true false
+            数据类型转换规则
+            1、如果只有一个值，判断这个值真假与否遵循以下规则：
+                0 NaN null undefined '' 为假，其他都为真
+                ! 先转换为Boolean然后去反
+                !! 将其他的数据类型转换为Boolean类型。 !!'内容'《==》Boolean('内容')
+                console.log(!!'珠峰',Boolean('珠峰')) -> true true
+            2、val1==val2 两个值比较时会默认进行数据类型转换，遵循以下规则：
+                1、对象==对象 
+                   永远为false 
+                   []==[] -> false ; {}=={} -> false ;(function fn(){}==function fn(){}) -> false
+                2、对象==字符串 
+                   先将字符串转换为字符串（调用toString()方法），然后字符串和字符串进行比较
+                   []=='' -> true   [].toString() -> ''
+                   ({})=='' ->false ({}).toString()->"[object Object]"
+                3、对象==布尔类型
+                   先将对象转换为字符串(调用toString()方法),然后再转换为数字（调用Number()方法,valueOf）,
+                   布尔类型转换为数字：true 1 false 0
+                   让数字和数字进行比较 
+                   []==false  -> true
+                4、对象==数字类型
+                   先将对象转换为字符串(调用toString()方法),然后再转换为数字（调用Number()方法,valueOf）,
+                   让数字和数字进行比较 
+                   []==0  -> true
+                5、数字==布尔类型
+                   布尔类型转换为数字
+                   数字和数字进行比较
+                   12==true ->false  0==false  ->true
+                   1==true  ->true   
+                6、数字==字符串
+                   字符串转换为数字
+                   数字和数字进行比较
+                7、字符串==布尔
+                   都转换为数字
+                   数字和数字进行比较
+                8、null==undefined  ->true
+                9、null或者undefined 和其他数据类型比较都不相等
+                   null == 0  ->false
+            3、val1===val2
+               数据类型不一致肯定不相等
+               null===undefined ->false
+        */
+    </script>        
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>正则捕获</title>
+</head>
+<body>
+<script type="text/javascript">
+    /*
+    //exec正则捕获
+        var reg=/\d+/g;
+        var res=reg.exec("lsoomi2016lsmife2017ls");
+        console.log(res);
+//        0:"2016"
+//        index:6
+//        input:"lsoomi2016lsmife2017ls"
+//        length:1
+//    正则捕获的特点
+//      1、惰性：每次执行只捕获第一个符合规则的内容,再不进行特殊处理的情况下，执行多次，依然是第一个符合规则的内容
+//      reg.lastIndex->在每次执行时都不会发生改变，保持第一次
+            var reg=/\d+/;
+            console.log(reg.exec("lsoomi2016lsmife2017ls"));
+            console.log(reg.lastIndex)//reg.lastIndex->0
+            console.log(reg.exec("lsoomi2016lsmife2017ls"));//reg.lastIndex->0
+            console.log(reg.lastIndex)//reg.lastIndex->0
+
+//      2、解决惰性：添加修饰符g lastIndex在每次执行时都会发生改变
+            var reg=/\d+/g;
+            console.log(reg.exec("lsoomi2016lsmife2017ls"));//reg.lastIndex->0
+            console.log(reg.lastIndex)//reg.lastIndex->10
+            console.log(reg.exec("lsoomi2016lsmife2017ls"));//reg.lastIndex->0
+            console.log(reg.lastIndex)//reg.lastIndex->20
+//      3、通过多次循环捕获所有匹配到的内容
+            var str="ls2016,ls2017list2018"
+            var res=[];
+            var reg=/\d+/g;
+            var cur=reg.exec(str);
+            while(cur){
+                res.push(cur[0]);
+                cur=reg.exec(str);
+            }
+            console.log(res);
+//       4、正则的贪婪：正则每次都是按照最多的内容进行匹配和捕获的
+//          var reg=/\d+/ str='2015ls' 可以匹配1个、2个、3个、4个，但是默认匹配最多的4次
+//       5、取消正则的贪婪行 量词后面加问号: +? ?? {n,m}?
+            var reg=/\d+?/g//->["2", "0", "1", "5", "2", "0", "1", "6"]
+            var reg=/\d{2,4}?/g//->["20", "15", "20", "16"]
+            var reg=/\d??/g//->浏览器奔溃
+            var reg=/\d*?/g//->浏览器奔溃
+            var str='2015ls2016';
+            var resReg=execReg(str,reg)
+            function execReg(str,reg){
+                var res=[];
+                var reg=new RegExp(reg,"g");
+                var cur=reg.exec(str);
+                while(cur){
+                    res.push(cur[0]);
+                    cur=reg.exec(str);
+                }
+                return res;
+            }
+            console.log(resReg)
+//       6、问号？：量词后面取消贪婪、元字符后面表示量词（0-1）个
+//       7、字符串match不用循环的情况下捕获全部匹配道德内容，相当于exec循环执行
+           var reg=/\d{2,4}?/g
+           var str="lsm9009,ls234.3434"
+           var res=str.match(reg);
+           console.log(res)//-> ["90", "09", "23", "34", "34"]
+           弊端：分组macth只能匹配大正则的内容，小正则无法匹配
+    8、分组:整体，改变优先级
+        1、改变优先级
+        2、分组引用
+        \2和第二个分组内容(类型和值)一样 \1和第一个分组内容(类型和值)一样
+        var reg=/(\d)(\w)\2(\s)\1/;
+        var str="2dd 2";//->true
+        var str="2df 3";//->false
+        var res=reg.test(str);
+        console.log(res);
+        注意：分组的顺序是由括号出现的先后顺序决定的
+//    9、分组捕获:匹配大正则的内容，匹配小正则的内容解决match的缺陷
+//      需求：有些分组的值对我们没有用，所以不需要进行捕获"
+//      ?: "在分组中只匹配、不捕获
+        var str= "152824198805214512";
+        var regID=/^(\d{2})(\d{4})(\d{4})(\d{2})(\d{2})(?:\d{2})(\d)(\d|X)$/
+//      身份证号中的倒数第三个分组不需要进行捕获所以不需要捕获
+        var res=regID.exec(str);
+        console.log(res)
+        console.log(str.match(reg))//和exec捕获到同样的内容
+        //-> ["152824198805214512", "15", "2824", "1988", "05", "21", "45", "1", "2", index: 0, input: "152824198805214512"]
+        //->大正则的内容，分组的内容，大正则匹配的起始位置，匹配的输入内容即目标字符串
+//    10、macth和exec在分组捕获上的区别(匹配结果是多个的时候不能匹配到分组，单个的时候可以匹配到分组)
+        var str="lsmife124lsmife345lsmife9090";
+        var reg=/lsmife(\d+)/g;
+    //    1)、通过exec可以通过多次执行，可以逐个捕获分组的内容，大正则的每次都会被捕获到
+        console.log(reg.exec(str))//->["lsmife124", "124", ...] 第一次执行第一个分组的内容
+        console.log(reg.exec(str))//->["lsmife345", "345", ...] 第二次执行第二个分组的内容
+        console.log(reg.exec(str))//->["lsmife9090", "9090", ...] 第三次执行第三个分组的内容
+    //    2)、通过match只能捕获大正则的内容
+        console.log(str.match(reg))//->["lsmife124", "lsmife345", "lsmife9090"]
+//    11、replace捕获并替换（第二个参数传递参数）
+//          replace的单次捕获阶段和exec表现一样（不加修饰符g，永远捕获第一项），然而replace进行内置的循环操作获取所有捕获到的内容不需要自己写，并且可以将捕获到的值进行替换，而exec需要自己写循环
+
+        str.replace(reg,function(){
+            console.log(arguments);
+        })
+        */
+    var str="lsmife124lsmife345lsmife9090";
+
+        //捕获几次匿名函数执行几次
+        //单次arguments的内容和单次exec捕获的结果是一致的【大正则捕获内容，对应次数的分组内容，大正则其实索引，输入内容】
+        //return 内容替换本轮大正则捕获的内容
+        var reg=/lsmife(\d+)(?=l)/g;
+        var strNew=str.replace(reg,function(){
+//            console.log(arguments[0])//大正则捕获内容
+//            console.log(arguments[1])//对应轮次的分组内容
+//            console.log(arguments[2])//大正则其实索引
+//            console.log(arguments[3])//输入内容
+            var a=Math.floor(Math.random()*9)+1;
+            return a;//不写return是用undefined替换,return arguments[0]就是不进行替换
+
+        })
+        console.log(strNew);
+
+</script>
+</body>
+</html>

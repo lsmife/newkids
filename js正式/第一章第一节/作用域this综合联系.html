@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>作用域this综合练习</title>
+    <style>
+        #btn{
+            width: 300px;height: 30px;margin:auto;border:1px solid #ddd;
+            text-align: center;
+            line-height: 30px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<script>
+    var num=20;
+    var obj={
+        num:30,
+        fn:(function(num){
+            this.num*=3;   //60
+            num+=15;
+            var num=45;    //45
+            return function(){
+                this.num*=4;
+                num+=20;
+                console.log(num);
+            }
+        })(num)//把全局变量num=20赋值给它，可以传obj.num
+    }
+    var fn=obj.fn;
+    fn(); //this.num=240;num=65
+    obj.fn(); //this.num=120;num=85
+    console.log(window.num,obj.num);//window.num=240 obj.num=120
+</script>
+<div  id="btn">
+    点击累计次数<span id="spanEle">0</span>次
+</div>
+<script>
+    var oBtn=document.getElementById('btn');
+    var spanEle=document.getElementById('spanEle');
+    //方法一,弊端全局作用域污染
+    var count=0;
+    oBtn.onclick=function(){
+        count++;
+        spanEle.innerHTML=count;
+    }
+    //方法二,不销毁作用域弊端浪费内存
+    oBtn.onclick=(function(){
+        var count=0;
+        return function () {
+            count++;
+            spanEle.innerHTML=count;
+        }
+    })()
+    //方法三,不销毁作用域弊端浪费内存
+    (function(){
+        var count=0;
+        oBtn.onclick=function(){
+            count++;
+            spanEle.innerHTML=count;
+        }
+    })()
+    //方法四,利用HTML方式，弊端每次修改时页面都会被渲染
+    oBtn.onclick=function(){
+        var num=parseInt(spanEle.innerHTML);
+        spanEle.innerHTML=++num;
+    }
+    //方法五,利用自定义属性
+    oBtn.num=0;
+    oBtn.onclick=function(){
+        spanEle.innerHTML=++this.num;
+    }
+</script>
+</body>
+</html>

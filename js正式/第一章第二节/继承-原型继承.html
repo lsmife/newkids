@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>原型继承</title>
+</head>
+<body>
+<script>
+//      原型继承：子类的原型等于父类的实例
+//              父类的公有属性和私有属性都成为子类的公有属性
+//              并没有把父类的属性拿过来，而是改变了prototype指向
+//              父类发生改变子类也会收到影响
+
+        function myObject(){}
+        myObject.prototype.hasOwnProperty=function(){};
+        function myEventTarget(){}
+        myEventTarget.prototype=new myObject();
+        myEventTarget.prototype.constructor=myEventTarget;
+        myEventTarget.prototype.addEventListener=function(){};
+        function myNode(){}
+        myNode.prototype=new myEventTarget();
+        myNode.prototype.constructor=myNode;
+        myNode.prototype.nodeName=function(){};
+        var nodes=new myNode;
+        console.dir(nodes)
+</script>
+</body>
+</html>

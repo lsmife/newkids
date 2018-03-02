@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>混合继承</title>
+</head>
+<body>
+<script>
+//    混合模式继承(原型继承+call继承)
+//    call继承实现私有继承私有，原型继承实现公有继承继承私有+公有，重复继承了私有属性
+    function A(){
+        this.x=100;
+    }
+    A.prototype.getX=function(){};
+    function B(){
+        A.call(this);
+    }
+    B.prototype=new A;
+    B.prototype.constructor=B;
+    var f=new B;
+    console.dir(f)
+
+</script>
+</body>
+</html>

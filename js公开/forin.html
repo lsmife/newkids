@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>forin循环</title>
+</head>
+<body>
+    <script>
+        /*
+            for用来循环对象中的属性名和属性值
+            对象类型中属性名称可以是数字或者字符
+            var person={
+                nick:"lsmife",
+                age:28,
+                2:2003,
+                1:10086
+            }
+            获取的时候可以使用2种方法
+            person.nick 或者 person['nick']
+            例外：person[1]   但不可以使用 person.1
+            
+            1、for in 遍历对象是，获取属性值不可以使用点即，只能使用下面的方式
+                for(var key in person){
+                    console.log(key +":"+ person[key])
+                }
+            2、首先把数字的按照从小到大的方式循环，剩下的按照我们写的顺序循环
+                // 1:10086
+                // 2:2003
+                // nick:lsmife
+                // age:28
+        */
+    
+    </script>
+</body>
+</html>

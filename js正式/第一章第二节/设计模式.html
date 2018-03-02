@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>设计模式</title>
+</head>
+<body>
+<script>
+    /*
+    * 单例模式：再多人开发时根据功能模块，定义不同的对象，再对象内容定义不同的属性及方法，可以定义公共对象
+    * var navBar={
+    *    title:"navBar",
+    *    click:function(){
+    *       console.log(this.title);
+    *    }
+    * }
+    * 工厂模式：低耦合高内聚，函数封装公共方法，函数执行传参的方式实现不同的实例
+    * function createPerson(nick,age){
+    *   var obj={};
+    *   obj.nick=nick;
+    *   obj.age=age;
+    *   obj.eat=function(){
+    *       console.log("I am "+nick+" I am "+age+" years old ! I can eat! ")
+    *   }
+    *   return obj;
+    * }
+    * 多态：重载、重写
+    * JS有多态（有重写，没重载）
+    * 重写：子类可以重写父类的方法；
+    * 重载：函数名称相同，通过传递不同的参数，实现不同的功能
+    * JS模拟重载：函数内部通过判断参数的个数，类型，来实现不同的功能；
+    * new 与 直接调用
+    * 区别:
+    * 1、执行方式不同
+    * 2、new Create()执行会默认创建一个实例Create，this指向当前实例
+    *  function Create(){
+    *      console.log(this);
+    *  }
+    *  new Create();// ->Create
+    *  Create()//->window
+    * 相同之处：
+    * 都属于函数，都要进行形成私有作用域、形参赋值、预解释、自上而下执行
+    *
+    * 类都是函数类型，实例都属于对象类型
+    *
+    * 构造函数模式
+    * function Fn(){
+    *   this.x=100;
+    *   this.getX=function(){
+    *       console.log(this.x);
+    *   }
+    * }
+    * var f1=new Fn;
+    * f1.getX();//this->f1 this.x->100
+    * var f2=f1.getX;
+    * f2();//this->window this.x->undefined
+    * 1、在构造函数中，Fn如果没参数的话可以省略括号
+    * 2、this的问题，构造函数的this指向构造函数的实例，构造函数属性值（函数）中的this,需要按照函数执行时是否前面存在"."的原则进行处理
+    * 3、类也有普通方法的一面，形成私有作用域、形参赋值、预解释、代码自上而下执行,通过var和function声明的变量只是函数的私有变量，并非实例的属性，只有通过this设置的属性才是实例的属性；
+    * function Fn(){
+    *   var num=20;
+    *   this.x=100;
+    *   this.getX=function(){
+    *       console.log(this.x);
+    *   }
+    * }
+    * var f1=new Fn;
+    * console.log(f1.num)//->undefined
+    * 4、浏览器默认构造函数会返回一个实例，如果手动给构造函数体添加return
+    * 1）如果return的是基础数据类型，那不影响构造函数返回实例
+    * 2）如果return的是对象类型的，那构造函数返回的实例会是手动return的实例
+    * function Fn(){
+    *   this.x=100;
+    *   this.getX=function(){
+    *       console.log(this.x);
+    *   }
+    *   return "1234"
+    * }
+    * console.log(f1)//Fn {...}
+    * function Fn(){
+    *   this.x=100;
+    *   this.getX=function(){
+    *       console.log(this.x);
+    *   }
+    *   return {"name":"lsmife"}
+    * }
+    * var f1=new Fn;
+    * console.log(f1)//{"name":"lsmife"}
+    *
+    * //思考怎么设置私有和公有属性?
+    * in:用来检测属性是否属于该对象，公有私有都会返回TRUE；
+    * obj.hasOwnProperty('属性'),检测私有属性；
+    * hasPubProperty('属性')方法,检测公有属性；
+    * function hasPubProperty(obj,attr){
+    *   return (attr in obj) && ! obj.hasOwnProperty(attr);
+    * }
+    * for(attr in obj){} 遍历的是私有属性；
+    *
+    * isPrototypeOf()
+    * */
+</script>
+</body>
+</html>

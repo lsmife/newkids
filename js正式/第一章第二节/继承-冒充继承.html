@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>冒充继承</title>
+</head>
+<body>
+<script>
+    //    冒充继承
+    //    子类把父类的私有属性和公有的属性都克隆一份拿过来
+    function A(){
+        this.x=100;
+        this.getX=function(){}
+    }
+    A.prototype.y=120;
+    function B(){
+        var temp=new A;
+        for(var key in temp){
+            this[key]=temp[key];
+        }
+        temp=null;
+    }
+    var f=new B;
+    console.log(f.x,f.getX,f.y)// -> 100 ƒ (){} 120
+</script>
+</body>
+</html>

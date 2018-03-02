@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>函数</title>
+</head>
+<body>
+函数:引用数据类型(对象数据类型)
+function fn(){}
+typeof fn -> 'function';
+fn instanceof Object ->true;
+fn.prototype(对象类型：存放实例的公共属性和方法)
+fn.name ->fn
+fn.__proto__.call
+fn.__proto__.apply
+fn.__proto__.bind
+问题：js中万物皆对象，为什么还要用new
+new 可以改变函数这个对象中的this指向，指向函数对象本身；
+var a =new Fn
+解释：将Fn的this指向对象Fn，并且复制一份改变后的Fn对象给a
+/*
+*   apply bind call方法
+* 函数的__proto__的属性中有apply bind call方法
+* fn.call(obj,a1,a2,...,an)
+* fn.apply(obj,[a1,a2,...,an])
+* var fnObj=fn.bind(obj,a1);
+* fnObj(a2,...,an);
+* call和apply是继承（改变this指向）并立即执行
+* call的传参是在obj后面用逗号分割，apply是在obj后面的数组
+* bind返回一个改变后的函数，函数参数可以在bind时传入，亦可以在函数执行时传入，函数可以随时执行
+* */
+var obj={
+    gender:'男',
+    print:function(nick,age,height){
+        this.nick=nick;
+        this.age=age;
+        this.height=height;
+        console.log(this.nick+":"+this.age+":"+this.gender+":"+this.height);
+    }
+}
+var b=obj.print;
+b('lsmife',18,180)
+b.call(obj,'lsmife',18,180);
+b.apply(obj,['lsmife',18,180]);
+var c=b.bind(obj,'lsmife');
+c(18,180)
+
+页面加载时：浏览器形成全局作用域供js代码执行
+创建函数：
+1、浏览器开辟栈空间并分配一个16进制地址
+2、将函数体中js代码，当[ 字符串 ]存起来
+3、把十六进制地址赋值给给函数名
+函数执行：
+1、形成私有作用域，供函数体中代码执行的环境，其中变量不受外界的干扰
+2、函数体中字符串变为代码从上到下执行
+3、形参赋值
+4、变量预解释、函数预解释并赋值（不重复申明）
+5、从上到下代码执行
+
+返回值：默认undefined
+定义了形参，没有传递值的时候，默认为undefined
+创建一个函数，可以执行任意次，每次执行都和上一次没有任何关系
+<script>
+    function total(num1,num2){
+        return num1+num2
+    }
+
+    console.log(total(10,null)); // ->10
+    console.log(total(10));// -> NaN
+    console.log(total(10,'10'));// -> 1010 (string)
+
+    function sum(){
+        console.dir(arguments)
+    }
+    sum(1,2,3,4,5)
+//    arguments        ->参数数组
+//    arguments.length ->参数个数
+//    arguments.callee ->函数本身
+    function sumA() {
+        var total = null;
+        for (var i = 0; i < arguments.length; i++) {
+            var cur = Number(arguments[i])
+            if (!isNaN(cur)) {
+                total += cur;
+            }
+//            if(isNaN(cur)){
+//                continue
+//            }
+//            total+=cur;
+
+        }
+        return total
+    }
+    //匿名函数
+    //1、自执行函数
+    function fn(){}(function(sum){})(100) //避免这样的误会发生，使用下面的方式
+    function fn(){}
+    ;(function(sum){})(100)
+    //2、函数表达式:讲函数定义部分作为值，赋值给变量
+    var a=function(){}
+    obj.onClick=function(){}
+
+</script>
+
+</body>
+</html>

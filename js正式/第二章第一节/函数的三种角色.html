@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>函数</title>
+</head>
+<body>
+<script>
+//    JQ充分利用了函数的三种角色
+//    function Fn(nick,age,gender){
+//        this.x=100;
+//    }
+//    Fn.prototype.y=200
+//    console.dir(Fn) //图2
+    function Fn(){
+        var num=500;
+        this.x=100; //this->f
+    }
+    Fn.prototype.getX=function getX(){
+        console.log(this.x)
+    }
+    Fn.aaa=1000;
+    var f=new Fn;
+    f.num//->undefined
+    f.aaa//->undefined
+    var res=Fn() //res->undefined this->window
+    Fn.aaa//->100
+</script>
+</body>
+</html>
